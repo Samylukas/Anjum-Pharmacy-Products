@@ -43,7 +43,6 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
 
-        /* Cinematic Logo Splash Animations */
         @keyframes cinematicZoom {
             0% { transform: scale(0.3) rotate(-10deg); opacity: 0; filter: blur(10px); }
             50% { transform: scale(1.1) rotate(2deg); opacity: 0.9; filter: blur(0px); }
@@ -51,7 +50,7 @@
         }
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 25px rgba(249, 115, 22, 0.2); }
-            50% { box-shadow: 0 0 45px rgba(16, 185, 129, 0.4); }
+            50% { shadow: 0 0 45px rgba(16, 185, 129, 0.4); }
         }
         @keyframes fadeInText {
             0% { opacity: 0; transform: translateY(15px); }
@@ -72,10 +71,10 @@
 </head>
 <body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
 
-    <!-- 1. CINEMATIC SPLASH SCREEN -->
+    <!-- 1. CINEMATIC SPLASH SCREEN (تكبير اللوجو للضعف) -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
-        <!-- Logo Image with Cinematic Animation -->
-        <div class="relative w-44 h-44 md:w-52 md:h-52 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-2">
+        <!-- Doubled Logo Container Size (w-80 h-80) -->
+        <div class="relative w-72 h-72 md:w-80 md:h-80 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
             <img src="logo.jpeg" alt="Anjum Green Pharmacy" class="w-full h-full object-contain rounded-2xl" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80';">
         </div>
 
@@ -88,10 +87,10 @@
         </div>
     </div>
 
-    <!-- 2. LANGUAGE SELECTOR MODAL -->
+    <!-- 2. LANGUAGE SELECTOR MODAL (مكبر اللوجو للضعف) -->
     <div id="language-modal" class="fixed inset-0 z-40 bg-white/95 glass-modal hidden flex items-center justify-center p-4 transition-all duration-500">
         <div class="bg-white border border-slate-200 p-6 md:p-10 rounded-3xl max-w-3xl w-full shadow-2xl text-center relative">
-            <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-4 border border-slate-200 shadow-sm p-1 bg-white">
+            <div class="w-28 h-28 rounded-2xl overflow-hidden mx-auto mb-4 border border-slate-200 shadow-md p-1 bg-white">
                 <img src="logo.jpeg" alt="Logo" class="w-full h-full object-contain rounded-xl">
             </div>
             <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
@@ -170,14 +169,15 @@
                     <button id="tab-btn-package" onclick="switchAdminTab('package')" class="py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800">إنشاء باقة عروض</button>
                 </div>
 
+                <!-- ADD PRODUCT FORM -->
                 <form id="add-product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج التجميلي (باللغة العربية فقط):</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج التجميلي (باللغة العربية):</label>
                         <input type="text" id="p-name-ar" required placeholder="مثال: كريم حليب الإبل المرطب" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">وصف المنتج (اختياري - باللغة العربية فقط):</label>
-                        <textarea id="p-desc-ar" rows="2" placeholder="كريم تجميل طبيعي ناعم ومغذي للبشرة..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">الغرض من المنتج / الوصف (باللغة العربية):</label>
+                        <textarea id="p-desc-ar" rows="2" placeholder="مثال: ترطيب كلي ونعومة فائقة للبشرة الجافة" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -185,18 +185,19 @@
                             <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع مباشر من الكمبيوتر):</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع من الكمبيوتر):</label>
                             <input type="file" id="p-file" accept="image/*" required class="w-full px-2 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer">
                         </div>
                     </div>
 
                     <div class="pt-2">
                         <button type="submit" id="btn-save-product" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
-                            ✨ رفع الصورة وترجمة فورية لجميع اللغات 9
+                            ✨ رفع الصورة وترجمة الاسم والغرض لجميع اللغات
                         </button>
                     </div>
                 </form>
 
+                <!-- ADD PACKAGE FORM -->
                 <form id="add-package-form" onsubmit="handlePackageSubmit(event)" class="space-y-4 hidden">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">اسم الباقة/العرض التجميلي (بالعربي):</label>
@@ -227,17 +228,17 @@
         </div>
     </div>
 
-    <!-- 4. WHITE HEADER NAVBAR WITH LOGO -->
+    <!-- 4. WHITE HEADER NAVBAR WITH DOUBLED LOGO -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm hidden" id="main-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <!-- Logo Image in Header -->
-                <div class="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 p-0.5 bg-white shadow-sm flex items-center justify-center">
-                    <img src="logo.jpeg" alt="Anjum Logo" class="w-full h-full object-contain rounded-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- Doubled Logo Image in Header (w-20 h-20) -->
+                <div class="w-20 h-20 rounded-2xl overflow-hidden border border-slate-200 p-1 bg-white shadow-sm flex items-center justify-center shrink-0">
+                    <img src="logo.jpeg" alt="Anjum Logo" class="w-full h-full object-contain rounded-xl">
                 </div>
                 <div>
                     <button onclick="openAdminModal()" class="text-left focus:outline-none group">
-                        <span class="text-xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight">
+                        <span class="text-2xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight">
                             <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span>
                         </span>
                     </button>
@@ -423,23 +424,30 @@
             }
         }
 
-        // دالة حاسمة لمنع تداخل اللغات: تقرأ الحقل المخصص للغة الحالية حصراً
-        function getStrictField(item, fieldType, lang) {
+        // دالة حظر النصوص غير المتواكبة وتطبيق اللغة حصراً
+        function getStrictCleanField(item, fieldType, lang) {
             const key = `${fieldType}_${lang}`;
+            let val = "";
             
             if (item[key] && typeof item[key] === 'string' && item[key].trim() !== '') {
-                return item[key].trim();
-            }
-
-            for (let prop in item) {
-                if (prop.trim().toLowerCase() === key.toLowerCase()) {
-                    if (item[prop] && item[prop].trim() !== '') {
-                        return item[prop].trim();
+                val = item[key].trim();
+            } else {
+                for (let prop in item) {
+                    if (prop.trim().toLowerCase() === key.toLowerCase()) {
+                        if (item[prop] && item[prop].trim() !== '') {
+                            val = item[prop].trim();
+                            break;
+                        }
                     }
                 }
             }
 
-            return '';
+            // حماية مطلقة: إذا كنا بالإنجليزية واسترجعت الجافاسكريبت أحرفاً روسية/سيريلية من الشيت القديم، يتم إلغاؤها فوراً
+            if (lang === 'EN' && /[\u0400-\u04FF]/.test(val)) {
+                return '';
+            }
+
+            return val;
         }
 
         function renderItems(data, containerId, isPackage) {
@@ -454,12 +462,11 @@
 
                 validCount++;
                 
-                // جلب اسم المنتج باللغة الحالية فقط
-                let name = getStrictField(item, 'Name', currentLang) || item.Name_AR || item.Name_EN || "Cosmetic Product";
-                // جلب الوصف باللغة الحالية فقط
-                let desc = getStrictField(item, 'Desc', currentLang);
+                // جلب اسم المنتج والغرض منه باللغة المحددة حصراً
+                let name = getStrictCleanField(item, 'Name', currentLang) || item.Name_AR || item.Name_EN || "Cosmetic Product";
+                let desc = getStrictCleanField(item, 'Desc', currentLang);
                 
-                // قراءة رابط الصورة المرفوعة
+                // صورة المنتج المرفوعة
                 let image = "";
                 if (item.Image_URL && item.Image_URL.trim().startsWith('http') && !item.Image_URL.includes('unsplash.com')) {
                     image = item.Image_URL.trim();
