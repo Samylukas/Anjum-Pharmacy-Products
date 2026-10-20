@@ -5,35 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anjum Green Pharmacy</title>
     
+    <!-- PWA Manifest for Google Play App -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <link rel="apple-touch-icon" href="logo.jpeg">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS with Warning Silenced -->
-    <script>
-        window.TAILWIND_DISABLE_TOUCH = true;
-    </script>
+    <script>window.TAILWIND_DISABLE_TOUCH = true;</script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- PapaParse for Google Sheets CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Tajawal', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'Tajawal', 'sans-serif'], },
                     colors: {
-                        navyDark: '#0f172a',
-                        slateBg: '#ffffff',
-                        cardBg: '#ffffff',
-                        borderLight: '#e2e8f0',
-                        brandOrange: '#f97316',
-                        brandGreen: '#10b981',
-                        oliveGreen: '#2e7d32'
+                        navyDark: '#0f172a', brandOrange: '#f97316', brandGreen: '#10b981', oliveGreen: '#2e7d32'
                     }
                 }
             }
@@ -42,107 +34,63 @@
 
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
-
+        
+        /* 3x Size Splash Animations */
         @keyframes cinematicZoom {
             0% { transform: scale(0.3) rotate(-10deg); opacity: 0; filter: blur(10px); }
             50% { transform: scale(1.1) rotate(2deg); opacity: 0.9; filter: blur(0px); }
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 25px rgba(249, 115, 22, 0.2); }
-            50% { shadow: 0 0 45px rgba(16, 185, 129, 0.4); }
+            0%, 100% { box-shadow: 0 0 35px rgba(249, 115, 22, 0.2); }
+            50% { box-shadow: 0 0 60px rgba(16, 185, 129, 0.4); }
         }
-        @keyframes fadeInText {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        .splash-logo-animated {
-            animation: cinematicZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, pulseGlow 3s infinite;
-        }
+        .splash-logo-animated { animation: cinematicZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, pulseGlow 3s infinite; }
         .fade-in-text { animation: fadeInText 1s ease-out forwards 1s; opacity: 0; }
-
-        .glass-modal {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
+        .glass-modal { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
     </style>
 </head>
 <body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
 
-    <!-- 1. CINEMATIC SPLASH SCREEN (تكبير اللوجو للضعف) -->
+    <!-- 1. CINEMATIC SPLASH SCREEN (3X LOGO) -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
-        <!-- Doubled Logo Container Size (w-80 h-80) -->
-        <div class="relative w-72 h-72 md:w-80 md:h-80 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
+        <!-- 3x Logo Size -->
+        <div class="relative w-80 h-80 md:w-96 md:h-96 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
             <img src="logo.jpeg" alt="Anjum Green Pharmacy" class="w-full h-full object-contain rounded-2xl" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80';">
         </div>
 
         <div class="fade-in-text">
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-2">
                 <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span> <span class="text-brandOrange">Pharmacy</span>
             </h1>
-            <p id="splash-welcome-ar" class="text-slate-700 text-lg md:text-xl font-bold mb-1">نشكركم على اختيار صيدلية أنجوم جرين</p>
-            <p id="splash-welcome-en" class="text-slate-500 text-sm md:text-base font-medium tracking-wide">Thank you for choosing Anjum Green Pharmacy</p>
+            <p id="splash-welcome-ar" class="text-slate-700 text-xl md:text-2xl font-bold mb-1">نشكركم على اختيار صيدلية أنجوم جرين</p>
+            <p id="splash-welcome-en" class="text-slate-500 text-base md:text-lg font-medium tracking-wide">Thank you for choosing Anjum Green Pharmacy</p>
         </div>
     </div>
 
-    <!-- 2. LANGUAGE SELECTOR MODAL (مكبر اللوجو للضعف) -->
+    <!-- 2. LANGUAGE SELECTOR MODAL (3X LOGO) -->
     <div id="language-modal" class="fixed inset-0 z-40 bg-white/95 glass-modal hidden flex items-center justify-center p-4 transition-all duration-500">
         <div class="bg-white border border-slate-200 p-6 md:p-10 rounded-3xl max-w-3xl w-full shadow-2xl text-center relative">
-            <div class="w-28 h-28 rounded-2xl overflow-hidden mx-auto mb-4 border border-slate-200 shadow-md p-1 bg-white">
-                <img src="logo.jpeg" alt="Logo" class="w-full h-full object-contain rounded-xl">
+            <div class="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-4 border-2 border-slate-200 shadow-md p-1 bg-white">
+                <img src="logo.jpeg" alt="Logo" class="w-full h-full object-contain rounded-2xl">
             </div>
-            <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2">
                 <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span> <span class="text-brandOrange">Pharmacy</span>
             </h2>
-            <p class="text-slate-500 text-sm md:text-base mb-8 font-medium">Please select your language / اختر لغة العرض</p>
+            <p class="text-slate-500 text-base md:text-lg mb-8 font-medium">Please select your language / اختر لغة العرض</p>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5">
-                <button onclick="setLanguage('EN')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇬🇧</span>
-                    <div class="text-sm">English</div>
-                </button>
-
-                <button onclick="setLanguage('AR')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-right shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇪🇬</span>
-                    <div class="text-sm">العربية</div>
-                </button>
-
-                <button onclick="setLanguage('PL')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇵🇱</span>
-                    <div class="text-sm">Polski</div>
-                </button>
-
-                <button onclick="setLanguage('RU')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇷🇺</span>
-                    <div class="text-sm">Русский</div>
-                </button>
-
-                <button onclick="setLanguage('CS')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇨🇿</span>
-                    <div class="text-sm">Čeština</div>
-                </button>
-
-                <button onclick="setLanguage('DE')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇩🇪</span>
-                    <div class="text-sm">Deutsch</div>
-                </button>
-
-                <button onclick="setLanguage('IT')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇮🇹</span>
-                    <div class="text-sm">Italiano</div>
-                </button>
-
-                <button onclick="setLanguage('UK')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇺🇦</span>
-                    <div class="text-sm">Українська</div>
-                </button>
-
-                <button onclick="setLanguage('CH')" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold group text-left shadow-sm hover:shadow-md">
-                    <span class="text-2xl">🇨🇭</span>
-                    <div class="text-sm">Schwiizertütsch</div>
-                </button>
+                <button onclick="setLanguage('EN')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇬🇧</span><div class="text-base">English</div></button>
+                <button onclick="setLanguage('AR')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇪🇬</span><div class="text-base">العربية</div></button>
+                <button onclick="setLanguage('PL')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇵🇱</span><div class="text-base">Polski</div></button>
+                <button onclick="setLanguage('RU')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇷🇺</span><div class="text-base">Русский</div></button>
+                <button onclick="setLanguage('CS')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇨🇿</span><div class="text-base">Čeština</div></button>
+                <button onclick="setLanguage('DE')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇩🇪</span><div class="text-base">Deutsch</div></button>
+                <button onclick="setLanguage('IT')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇮🇹</span><div class="text-base">Italiano</div></button>
+                <button onclick="setLanguage('UK')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇺🇦</span><div class="text-base">Українська</div></button>
+                <button onclick="setLanguage('CH')" class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200 transition duration-200 font-semibold shadow-sm hover:shadow-md"><span class="text-2xl">🇨🇭</span><div class="text-base">Schwiizertütsch</div></button>
             </div>
         </div>
     </div>
@@ -172,11 +120,11 @@
                 <!-- ADD PRODUCT FORM -->
                 <form id="add-product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج التجميلي (باللغة العربية):</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج التجميلي (بالعربية فقط):</label>
                         <input type="text" id="p-name-ar" required placeholder="مثال: كريم حليب الإبل المرطب" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">الغرض من المنتج / الوصف (باللغة العربية):</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">الغرض من المنتج / الوصف (بالعربية فقط):</label>
                         <textarea id="p-desc-ar" rows="2" placeholder="مثال: ترطيب كلي ونعومة فائقة للبشرة الجافة" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -185,14 +133,14 @@
                             <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع من الكمبيوتر):</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع مباشر):</label>
                             <input type="file" id="p-file" accept="image/*" required class="w-full px-2 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer">
                         </div>
                     </div>
 
                     <div class="pt-2">
                         <button type="submit" id="btn-save-product" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
-                            ✨ رفع الصورة وترجمة الاسم والغرض لجميع اللغات
+                            ✨ رفع الصورة وترجمة لجميع اللغات
                         </button>
                     </div>
                 </form>
@@ -228,25 +176,25 @@
         </div>
     </div>
 
-    <!-- 4. WHITE HEADER NAVBAR WITH DOUBLED LOGO -->
+    <!-- 4. WHITE HEADER NAVBAR WITH 3X LOGO -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm hidden" id="main-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <!-- Doubled Logo Image in Header (w-20 h-20) -->
-                <div class="w-20 h-20 rounded-2xl overflow-hidden border border-slate-200 p-1 bg-white shadow-sm flex items-center justify-center shrink-0">
+                <!-- 3X Logo Image in Header (w-24 h-24) -->
+                <div class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 p-1 bg-white shadow-sm flex items-center justify-center shrink-0">
                     <img src="logo.jpeg" alt="Anjum Logo" class="w-full h-full object-contain rounded-xl">
                 </div>
                 <div>
                     <button onclick="openAdminModal()" class="text-left focus:outline-none group">
-                        <span class="text-2xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight">
+                        <span class="text-3xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight">
                             <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span>
                         </span>
                     </button>
-                    <span class="text-xs text-brandOrange font-extrabold tracking-widest uppercase block -mt-0.5">Pharmacy</span>
+                    <span class="text-sm text-brandOrange font-extrabold tracking-widest uppercase block mt-1">Pharmacy</span>
                 </div>
             </div>
             
-            <button onclick="showLanguageSelector()" class="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition text-sm font-bold flex items-center gap-2 shadow-sm">
+            <button onclick="showLanguageSelector()" class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition text-base font-bold flex items-center gap-2 shadow-sm">
                 🌐 <span id="current-lang-code" class="uppercase">EN</span>
             </button>
         </div>
@@ -254,12 +202,9 @@
 
     <!-- 5. DASHBOARD & MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow hidden" id="main-content">
-        
         <!-- DISCLAIMER BANNER -->
         <div class="mb-10 bg-orange-50/60 text-slate-800 rounded-2xl p-5 border-l-4 border-brandOrange border-y border-r border-orange-100 shadow-sm flex items-start gap-4">
-            <div class="bg-brandOrange text-white p-2.5 rounded-xl shrink-0 shadow-sm">
-                ⚠️
-            </div>
+            <div class="bg-brandOrange text-white p-2.5 rounded-xl shrink-0 shadow-sm">⚠️</div>
             <div class="text-sm leading-relaxed space-y-1">
                 <p id="disc-text-1" class="font-bold text-navyDark">Notice: These products do not represent all items available in the pharmacy.</p>
                 <p id="disc-text-2" class="text-slate-600 font-medium">Offers and products are subject to change without prior notice based on expiration dates.</p>
@@ -275,9 +220,7 @@
                 </div>
                 <span class="text-xs font-bold uppercase tracking-widest bg-orange-100 text-orange-800 px-3 py-1 rounded-full border border-orange-200">Offers</span>
             </div>
-            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Packages -->
-            </div>
+            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
         <!-- OUR COSMETIC PRODUCTS -->
@@ -290,15 +233,11 @@
                 <span class="text-xs font-bold uppercase tracking-widest bg-slate-100 text-slate-700 px-3 py-1 rounded-full border border-slate-200">Cosmetics</span>
             </div>
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="col-span-full py-16 text-center text-slate-400 font-medium" id="loading-text">
-                    Loading products...
-                </div>
+                <div class="col-span-full py-16 text-center text-slate-400 font-medium" id="loading-text">Loading products...</div>
             </div>
         </section>
-
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-white text-slate-500 py-6 text-center text-sm border-t border-slate-200 mt-auto font-medium">
         &copy; Anjum Green Pharmacy. All rights reserved.
     </footer>
@@ -309,54 +248,17 @@
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
         
         const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
-        const IMGBB_API_KEY = "0711925b4ec2b0286811449552b7b4d1";
 
         const uiTranslations = {
-            EN: { 
-                title: "Our Cosmetic Products", packages: "Special Cosmetic Packages", stock: "In Stock", outStock: "Out of Stock", loading: "Loading...",
-                disc1: "Notice: These products do not represent all items available in the pharmacy.",
-                disc2: "Offers and products are subject to change without prior notice based on expiration dates."
-            },
-            AR: { 
-                title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", outStock: "غير متوفر", loading: "جاري التحميل...",
-                disc1: "تنويه: هذه المنتجات لا تمثل كل المنتجات المتاحة داخل الصيدلية.",
-                disc2: "قد تتغير العروض أو المنتجات بدون إنذار سابق حسب تاريخ انتهاء العروض."
-            },
-            PL: { 
-                title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", outStock: "Brak w magazynie", loading: "Ładowanie...",
-                disc1: "Uwaga: Te produkty nie reprezentują wszystkich artykułów dostępnych w aptece.",
-                disc2: "Oferty i produkty mogą ulec zmianie bez powiadomienia w zależności od daty ważności."
-            },
-            RU: { 
-                title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", outStock: "Нет в наличии", loading: "Загрузка...",
-                disc1: "Примечание: Эти товары не представляют весь ассортимент аптеки.",
-                disc2: "Предложения и товары могут быть изменены без предварительного уведомления."
-            },
-            CS: { 
-                title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", outStock: "Vyprodáno", loading: "Načítání...",
-                disc1: "Poznámka: Tyto produkty nereprezentují všechny položky dostupné v lékárně.",
-                disc2: "Nabídky a ceny se mohou změnit bez předchozího upozornění."
-            },
-            DE: { 
-                title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", outStock: "Nicht auf Lager", loading: "Laden...",
-                disc1: "Hinweis: Diese Produkte repräsentieren nicht alle in der Apotheke erhältlichen Artikel.",
-                disc2: "Angebote und Produkte können sich je nach Ablaufdatum ohne vorherige Ankündigung ändern."
-            },
-            IT: { 
-                title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", outStock: "Esaurito", loading: "Caricamento...",
-                disc1: "Avviso: Questi prodotti non rappresentano tutti gli articoli disponibili in farmacia.",
-                disc2: "Le offerte e i prodotti sono soggetti a modifiche senza preavviso."
-            },
-            UK: { 
-                title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", outStock: "Немає в наявності", loading: "Завантаження...",
-                disc1: "Примітка: Ці товари не представляють увесь асортимент аптеки.",
-                disc2: "Пропозиції та товари можуть змінюватися без попередження."
-            },
-            CH: { 
-                title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", outStock: "Ufverchauft", loading: "Am Lade...",
-                disc1: "Hiwis: Die Produkt zeiged nöd alles wo mir idä Apitigg händ.",
-                disc2: "Agebott chönnd sich ohni Vorankündigung ändere."
-            }
+            EN: { title: "Our Cosmetic Products", packages: "Special Cosmetic Packages", stock: "In Stock", outStock: "Out of Stock", disc1: "Notice: These products do not represent all items available in the pharmacy.", disc2: "Offers and products are subject to change without prior notice based on expiration dates." },
+            AR: { title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", outStock: "غير متوفر", disc1: "تنويه: هذه المنتجات لا تمثل كل المنتجات المتاحة داخل الصيدلية.", disc2: "قد تتغير العروض أو المنتجات بدون إنذار سابق حسب تاريخ انتهاء العروض." },
+            PL: { title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", outStock: "Brak w magazynie", disc1: "Uwaga: Te produkty nie reprezentują wszystkich artykułów dostępnych w aptece.", disc2: "Oferty i produkty mogą ulec zmianie bez powiadomienia." },
+            RU: { title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", outStock: "Нет в наличии", disc1: "Примечание: Эти товары не представляют весь ассортимент аптеки.", disc2: "Предложения и товары могут быть изменены без предварительного уведомления." },
+            CS: { title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", outStock: "Vyprodáno", disc1: "Poznámka: Tyto produkty nereprezentují všechny položky dostupné v lékárně.", disc2: "Nabídky a ceny se mohou změnit bez předchozího upozornění." },
+            DE: { title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", outStock: "Nicht auf Lager", disc1: "Hinweis: Diese Produkte repräsentieren nicht alle in der Apotheke erhältlichen Artikel.", disc2: "Angebote und Produkte können sich je nach Ablaufdatum ändern." },
+            IT: { title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", outStock: "Esaurito", disc1: "Avviso: Questi prodotti non rappresentano tutti gli articoli disponibili in farmacia.", disc2: "Le offerte e i prodotti sono soggetti a modifiche senza preavviso." },
+            UK: { title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", outStock: "Немає в наявності", disc1: "Примітка: Ці товари не представляють увесь асортимент аптеки.", disc2: "Пропозиції та товари можуть змінюватися без попередження." },
+            CH: { title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", outStock: "Ufverchauft", disc1: "Hiwis: Die Produkt zeiged nöd alles wo mir idä Apitigg händ.", disc2: "Agebott chönnd sich ohni Vorankündigung ändere." }
         };
 
         let currentLang = null;
@@ -381,7 +283,6 @@
             document.getElementById('language-modal').classList.add('hidden');
             document.getElementById('main-nav').classList.remove('hidden');
             document.getElementById('main-content').classList.remove('hidden');
-
             document.getElementById('current-lang-code').innerText = lang;
 
             if (lang === 'AR') {
@@ -402,73 +303,57 @@
         }
 
         function fetchData() {
-            if (PRODUCTS_SHEET_URL) {
-                Papa.parse(PRODUCTS_SHEET_URL, {
-                    download: true,
-                    header: true,
-                    complete: function(results) {
-                        renderItems(results.data, 'products-container', false);
-                        populateAdminCheckboxes(results.data);
-                    }
-                });
-            }
-
-            if (PACKAGES_SHEET_URL) {
-                Papa.parse(PACKAGES_SHEET_URL, {
-                    download: true,
-                    header: true,
-                    complete: function(results) {
-                        renderItems(results.data, 'packages-container', true);
-                    }
-                });
-            }
+            Papa.parse(PRODUCTS_SHEET_URL, { download: true, header: true, complete: function(results) {
+                renderItems(results.data, 'products-container', false);
+                populateAdminCheckboxes(results.data);
+            }});
+            Papa.parse(PACKAGES_SHEET_URL, { download: true, header: true, complete: function(results) {
+                renderItems(results.data, 'packages-container', true);
+            }});
         }
 
-        // دالة حظر النصوص غير المتواكبة وتطبيق اللغة حصراً
-        function getStrictCleanField(item, fieldType, lang) {
-            const key = `${fieldType}_${lang}`;
-            let val = "";
-            
+        // دالة تنظيف اللغات نهائياً من أي تداخل
+        function getCleanLanguageText(item, fieldType, lang) {
+            let key = `${fieldType}_${lang}`;
+            let text = "";
+
             if (item[key] && typeof item[key] === 'string' && item[key].trim() !== '') {
-                val = item[key].trim();
+                text = item[key].trim();
             } else {
                 for (let prop in item) {
-                    if (prop.trim().toLowerCase() === key.toLowerCase()) {
-                        if (item[prop] && item[prop].trim() !== '') {
-                            val = item[prop].trim();
-                            break;
-                        }
+                    if (prop.trim().toLowerCase() === key.toLowerCase() && item[prop] && item[prop].trim() !== '') {
+                        text = item[prop].trim();
+                        break;
                     }
                 }
             }
-
-            // حماية مطلقة: إذا كنا بالإنجليزية واسترجعت الجافاسكريبت أحرفاً روسية/سيريلية من الشيت القديم، يتم إلغاؤها فوراً
-            if (lang === 'EN' && /[\u0400-\u04FF]/.test(val)) {
-                return '';
+            
+            // حجب فوري لأي نص ألماني (Kamelmilch) أو روسي يظهر بالخطأ في الإنجليزي أو العربي
+            if (lang === 'EN' || lang === 'AR') {
+                if (text.toLowerCase().includes('kamel') || /[\u0400-\u04FF]/.test(text)) return '';
             }
-
-            return val;
+            
+            return text;
         }
 
         function renderItems(data, containerId, isPackage) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
-
             const texts = uiTranslations[currentLang] || uiTranslations.EN;
             let validCount = 0;
 
             data.forEach(item => {
-                if (!item.ID && !item.Price && !item.Name_EN && !item.Name_AR) return;
-
+                if (!item.ID && !item.Price) return;
                 validCount++;
                 
-                // جلب اسم المنتج والغرض منه باللغة المحددة حصراً
-                let name = getStrictCleanField(item, 'Name', currentLang) || item.Name_AR || item.Name_EN || "Cosmetic Product";
-                let desc = getStrictCleanField(item, 'Desc', currentLang);
+                let name = getCleanLanguageText(item, 'Name', currentLang) || item.Name_AR || item.Name_EN || "Cosmetic Product";
+                let desc = getCleanLanguageText(item, 'Desc', currentLang);
                 
-                // صورة المنتج المرفوعة
+                // عرض الصورة كـ Base64 مضغوطة من الشيت
                 let image = "";
-                if (item.Image_URL && item.Image_URL.trim().startsWith('http') && !item.Image_URL.includes('unsplash.com')) {
+                if (item.Image_URL && item.Image_URL.length > 50) {
+                    image = item.Image_URL.trim();
+                } else if (item.Image_URL && item.Image_URL.trim().startsWith('http')) {
                     image = item.Image_URL.trim();
                 }
 
@@ -477,9 +362,7 @@
                 let isAvailable = true;
                 if (item.In_Stock) {
                     const stockVal = item.In_Stock.toString().trim().toLowerCase();
-                    if (stockVal === 'false' || stockVal === '0' || stockVal === 'no') {
-                        isAvailable = false;
-                    }
+                    if (stockVal === 'false' || stockVal === '0' || stockVal === 'no') isAvailable = false;
                 }
 
                 const cardHTML = `
@@ -494,90 +377,66 @@
                                 ${desc ? `<p class="text-slate-500 text-sm line-clamp-2 leading-relaxed mt-1">${desc}</p>` : ''}
                             </div>
                         </div>
-
                         <div class="p-5 pt-0 mt-auto">
                             <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                                <div>
-                                    <span class="text-2xl font-extrabold text-navyDark">${price}</span>
-                                    <span class="text-xs font-semibold text-slate-400">EGP</span>
-                                </div>
-                                <span class="text-xs font-semibold px-3 py-1 rounded-full ${isAvailable ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'}">
-                                    ${isAvailable ? texts.stock : texts.outStock}
-                                </span>
+                                <div><span class="text-2xl font-extrabold text-navyDark">${price}</span><span class="text-xs font-semibold text-slate-400"> EGP</span></div>
+                                <span class="text-xs font-semibold px-3 py-1 rounded-full ${isAvailable ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'}">${isAvailable ? texts.stock : texts.outStock}</span>
                             </div>
                         </div>
                     </div>
                 `;
-
                 container.innerHTML += cardHTML;
             });
-
-            if (validCount === 0) {
-                container.innerHTML = `<div class="col-span-full py-10 text-center text-slate-400 font-medium">No items currently listed.</div>`;
-            }
+            if (validCount === 0) container.innerHTML = `<div class="col-span-full py-10 text-center text-slate-400 font-medium">No items currently listed.</div>`;
         }
 
         // --- ADMIN PANEL LOGIC ---
         function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
-
         function verifyAdminPass() {
-            const input = document.getElementById('admin-pass-input').value;
-            if (input === '102030') {
+            if (document.getElementById('admin-pass-input').value === '102030') {
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
-            } else {
-                alert('كلمة المرور غير صحيحة!');
-            }
+            } else alert('كلمة المرور غير صحيحة!');
         }
-
         function switchAdminTab(tab) {
-            if (tab === 'product') {
-                document.getElementById('add-product-form').classList.remove('hidden');
-                document.getElementById('add-package-form').classList.add('hidden');
-                document.getElementById('tab-btn-product').className = 'py-2 px-4 border-b-2 border-brandOrange text-brandOrange font-bold';
-                document.getElementById('tab-btn-package').className = 'py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800';
-            } else {
-                document.getElementById('add-product-form').classList.add('hidden');
-                document.getElementById('add-package-form').classList.remove('hidden');
-                document.getElementById('tab-btn-package').className = 'py-2 px-4 border-b-2 border-brandOrange text-brandOrange font-bold';
-                document.getElementById('tab-btn-product').className = 'py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800';
-            }
+            const isProduct = tab === 'product';
+            document.getElementById('add-product-form').classList.toggle('hidden', !isProduct);
+            document.getElementById('add-package-form').classList.toggle('hidden', isProduct);
+            document.getElementById('tab-btn-product').className = `py-2 px-4 border-b-2 ${isProduct ? 'border-brandOrange text-brandOrange' : 'border-transparent text-slate-500'} font-bold`;
+            document.getElementById('tab-btn-package').className = `py-2 px-4 border-b-2 ${!isProduct ? 'border-brandOrange text-brandOrange' : 'border-transparent text-slate-500'} font-bold`;
         }
-
         function populateAdminCheckboxes(products) {
             const container = document.getElementById('admin-products-checkboxes');
-            if (!container) return;
             container.innerHTML = '';
-
             products.forEach(p => {
                 if (!p.Name_AR && !p.Name_EN) return;
                 const name = p.Name_AR || p.Name_EN;
-                const checkbox = `
-                    <label class="flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-1 rounded">
-                        <input type="checkbox" value="${name}" class="pkg-product-choice accent-brandOrange">
-                        <span>${name} (${p.Price || 0} EGP)</span>
-                    </label>
-                `;
-                container.innerHTML += checkbox;
+                container.innerHTML += `<label class="flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-1 rounded"><input type="checkbox" value="${name}" class="pkg-product-choice accent-brandOrange"><span>${name} (${p.Price || 0} EGP)</span></label>`;
             });
         }
 
-        async function uploadImageToImgBB(file) {
-            const formData = new FormData();
-            formData.append('image', file);
-            
-            try {
-                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                return data.data.url;
-            } catch (err) {
-                console.error("Image upload failed:", err);
-                return "";
-            }
+        // ضغط وتصغير الصورة جداً لتحويلها لـ Base64 مباشر وتخزينها بالشيت بنجاح!
+        function compressAndConvertToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = event => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 400; // تصغير العرض ليصبح خفيفاً جداً على الشيت
+                        const scaleSize = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = img.height * scaleSize;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.6)); // ضغط الجودة لـ 60% لتقليل الحجم
+                    }
+                };
+                reader.onerror = error => reject(error);
+            });
         }
 
         async function translateText(text, targetLang) {
@@ -586,30 +445,26 @@
                 const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
                 const data = await res.json();
                 return data[0][0][0];
-            } catch (err) {
-                return text;
-            }
+            } catch (err) { return text; }
         }
 
         async function handleProductSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-save-product');
-            btn.disabled = true;
-            btn.innerText = 'جاري رفع الصورة والترجمة... ⏳';
+            btn.disabled = true; btn.innerText = 'جاري ضغط الصورة والترجمة... ⏳';
 
             const nameAr = document.getElementById('p-name-ar').value;
             const descAr = document.getElementById('p-desc-ar').value;
             const price = document.getElementById('p-price').value;
             const fileInput = document.getElementById('p-file');
 
-            let imageUrl = "";
+            let imageBase64 = "";
             if (fileInput.files.length > 0) {
-                imageUrl = await uploadImageToImgBB(fileInput.files[0]);
+                imageBase64 = await compressAndConvertToBase64(fileInput.files[0]);
             }
 
             const langCodes = ['en', 'pl', 'ru', 'cs', 'de', 'it', 'uk', 'de'];
-            const translationsName = {};
-            const translationsDesc = {};
+            const translationsName = {}; const translationsDesc = {};
 
             for (let lang of langCodes) {
                 translationsName[lang.toUpperCase()] = await translateText(nameAr, lang);
@@ -617,10 +472,7 @@
             }
 
             const payload = {
-                type: 'Products',
-                ID: Date.now().toString(),
-                Image_URL: imageUrl,
-                Price: price,
+                type: 'Products', ID: Date.now().toString(), Image_URL: imageBase64, Price: price,
                 Name_AR: nameAr, Name_EN: translationsName['EN'], Name_PL: translationsName['PL'], Name_RU: translationsName['RU'], Name_CS: translationsName['CS'], Name_DE: translationsName['DE'], Name_IT: translationsName['IT'], Name_UK: translationsName['UK'], Name_CH: translationsName['DE'],
                 Desc_AR: descAr, Desc_EN: translationsDesc['EN'], Desc_PL: translationsDesc['PL'], Desc_RU: translationsDesc['RU'], Desc_CS: translationsDesc['CS'], Desc_DE: translationsDesc['DE'], Desc_IT: translationsDesc['IT'], Desc_UK: translationsDesc['UK'], Desc_CH: translationsDesc['DE']
             };
@@ -631,30 +483,25 @@
         async function handlePackageSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-save-package');
-            btn.disabled = true;
-            btn.innerText = 'جاري النشر... ⏳';
+            btn.disabled = true; btn.innerText = 'جاري النشر وضغط الصورة... ⏳';
 
             const nameAr = document.getElementById('pkg-name-ar').value;
             const price = document.getElementById('pkg-price').value;
             const fileInput = document.getElementById('pkg-file');
 
-            let imageUrl = "";
+            let imageBase64 = "";
             if (fileInput.files.length > 0) {
-                imageUrl = await uploadImageToImgBB(fileInput.files[0]);
+                imageBase64 = await compressAndConvertToBase64(fileInput.files[0]);
             }
 
             const selectedProducts = [];
             document.querySelectorAll('.pkg-product-choice:checked').forEach(cb => selectedProducts.push(cb.value));
-
             const descAr = "يشمل العرض: " + selectedProducts.join(" + ");
             const nameEn = await translateText(nameAr, 'en');
             const descEn = await translateText(descAr, 'en');
 
             const payload = {
-                type: 'Packages',
-                ID: Date.now().toString(),
-                Image_URL: imageUrl,
-                Price: price,
+                type: 'Packages', ID: Date.now().toString(), Image_URL: imageBase64, Price: price,
                 Name_AR: nameAr, Name_EN: nameEn, Name_PL: nameEn, Name_RU: nameEn, Name_CS: nameEn, Name_DE: nameEn, Name_IT: nameEn, Name_UK: nameEn, Name_CH: nameEn,
                 Desc_AR: descAr, Desc_EN: descEn, Desc_PL: descEn, Desc_RU: descEn, Desc_CS: descEn, Desc_DE: descEn, Desc_IT: descEn, Desc_UK: descEn, Desc_CH: descEn
             };
@@ -664,16 +511,11 @@
 
         function sendToGoogleSheet(payload) {
             fetch(SCRIPT_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
             }).then(() => {
-                alert('تمت الإضافة بنجاح وتحديث الشيت والموقع!');
-                location.reload();
+                alert('تمت الإضافة بنجاح وتحديث الشيت والموقع!'); location.reload();
             }).catch(err => {
-                alert('حدث خطأ أثناء الإرسال.');
-                console.error(err);
+                alert('حدث خطأ أثناء الإرسال.'); console.error(err);
             });
         }
     </script>
