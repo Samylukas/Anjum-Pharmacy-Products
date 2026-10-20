@@ -2,8 +2,8 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ "main" ] # سيعمل تلقائياً عند أي تعديل
-  workflow_dispatch: # يضيف زر لتشغيله يدوياً متى شئت
+    branches: [ "main" ] 
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -18,11 +18,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: ☕ إعداد بيئة Java 17 للأندرويد
+      - name: ☕ إعداد بيئة Java 21 للأندرويد
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21' # تم التحديث هنا إلى النسخة 21 المطلوبة
 
       - name: 🏗️ تحويل الموقع لتطبيق أندرويد أصلي (Capacitor)
         run: |
