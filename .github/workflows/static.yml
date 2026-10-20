@@ -1,0 +1,40 @@
+name: Deploy static content to Pages
+
+on:
+  # يشتغل تلقائياً أول ما ترفع أي تعديل على فرع main
+  push:
+    branches: ["main"]
+  # يتيح لك تشغيله يدوياً لو حبيت
+  workflow_dispatch:
+
+# إعطاء الصلاحيات اللازمة لجيت هب لرفع الموقع
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# هذا هو السر لحل مشكلتك السابقة: تنظيم الطابور ومنع التداخل
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # مهمة النشر الفردية
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # رفع كل الملفات الموجودة في المستودع
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
