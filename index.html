@@ -35,7 +35,6 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
         
-        /* 3x Size Splash Animations */
         @keyframes cinematicZoom {
             0% { transform: scale(0.3) rotate(-10deg); opacity: 0; filter: blur(10px); }
             50% { transform: scale(1.1) rotate(2deg); opacity: 0.9; filter: blur(0px); }
@@ -47,7 +46,6 @@
         }
         @keyframes fadeInText { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* Cinematic Smoke Exit Animation */
         @keyframes smokeExit {
             0% { transform: scale(1); opacity: 1; filter: blur(0px); }
             100% { transform: scale(3.5); opacity: 0; filter: blur(25px); }
@@ -65,7 +63,6 @@
 
     <!-- 1. CINEMATIC SPLASH SCREEN (3X LOGO) -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
-        <!-- 3x Logo Size -->
         <div id="splash-logo-container" class="relative w-80 h-80 md:w-96 md:h-96 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
             <img src="logo.jpeg" alt="Anjum Green Pharmacy" class="w-full h-full object-contain rounded-2xl" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80';">
         </div>
@@ -79,7 +76,7 @@
         </div>
     </div>
 
-    <!-- 2. LANGUAGE SELECTOR MODAL (3X LOGO) -->
+    <!-- 2. LANGUAGE SELECTOR MODAL -->
     <div id="language-modal" class="fixed inset-0 z-40 bg-white/95 glass-modal hidden flex items-center justify-center p-4 transition-all duration-500">
         <div class="bg-white border border-slate-200 p-6 md:p-10 rounded-3xl max-w-3xl w-full shadow-2xl text-center relative">
             <div class="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-4 border-2 border-slate-200 shadow-md p-1 bg-white">
@@ -126,7 +123,6 @@
                     <button id="tab-btn-package" onclick="switchAdminTab('package')" class="py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800">إنشاء باقة عروض</button>
                 </div>
 
-                <!-- ADD PRODUCT FORM -->
                 <form id="add-product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج التجميلي (بالعربية فقط):</label>
@@ -142,7 +138,7 @@
                             <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">رابط الصورة (جوجل درايف أو أي رابط):</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">رابط الصورة (جوجل درايف):</label>
                             <input type="url" id="p-img" required placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                     </div>
@@ -154,7 +150,6 @@
                     </div>
                 </form>
 
-                <!-- ADD PACKAGE FORM -->
                 <form id="add-package-form" onsubmit="handlePackageSubmit(event)" class="space-y-4 hidden">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">اسم الباقة/العرض التجميلي (بالعربي):</label>
@@ -165,7 +160,7 @@
                         <input type="number" id="pkg-price" required placeholder="450" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة الباقة (جوجل درايف أو أي رابط):</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة الباقة (جوجل درايف):</label>
                         <input type="url" id="pkg-img" required placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
 
@@ -189,7 +184,6 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm hidden" id="main-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <!-- 3X Logo Image in Header (w-24 h-24) -->
                 <div class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 p-1 bg-white shadow-sm flex items-center justify-center shrink-0">
                     <img src="logo.jpeg" alt="Anjum Logo" class="w-full h-full object-contain rounded-xl">
                 </div>
@@ -211,7 +205,6 @@
 
     <!-- 5. DASHBOARD & MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow hidden" id="main-content">
-        <!-- DISCLAIMER BANNER -->
         <div class="mb-10 bg-orange-50/60 text-slate-800 rounded-2xl p-5 border-l-4 border-brandOrange border-y border-r border-orange-100 shadow-sm flex items-start gap-4">
             <div class="bg-brandOrange text-white p-2.5 rounded-xl shrink-0 shadow-sm">⚠️</div>
             <div class="text-sm leading-relaxed space-y-1">
@@ -220,7 +213,6 @@
             </div>
         </div>
 
-        <!-- SPECIAL PACKAGES -->
         <section class="mb-14">
             <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-3">
                 <div class="flex items-center gap-3">
@@ -232,7 +224,6 @@
             <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- OUR COSMETIC PRODUCTS -->
         <section>
             <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-3">
                 <div class="flex items-center gap-3">
@@ -273,19 +264,18 @@
         let currentLang = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            // وقت السبلاش سكرين تم تمديده لـ 5 ثواني
             setTimeout(() => {
                 const splashLogo = document.getElementById('splash-logo-container');
                 const splashText = document.getElementById('splash-text-container');
                 
-                // تفعيل الانيميشن الدخاني السينمائي للوجو
+                // تأثير الخروج السينمائي الدخاني
                 splashLogo.classList.add('smoke-exit-active');
                 splashText.classList.add('smoke-exit-active');
                 
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('hidden');
                     showLanguageSelector();
-                }, 1200); // وقت الأنيميشن الدخاني قبل الاختفاء
+                }, 1200); 
             }, 5000); 
         });
 
@@ -327,36 +317,31 @@
             }});
         }
 
-        // دالة تحويل روابط جوجل درايف تلقائياً لرابط مباشر يعمل في HTML
-        function convertDriveLink(url) {
+        // دالة سحرية لتحويل روابط جوجل درايف لتظهر مباشرة في الموقع بدون قيود!
+        function convertDriveLinkForImages(url) {
             if (!url) return "";
-            let match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+            // التقاط معرف الصورة (ID) من رابط درايف
+            let match = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/) || url.match(/\/d\/([a-zA-Z0-9-_]+)/) || url.match(/id=([a-zA-Z0-9-_]+)/);
             if (match && match[1]) {
-                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+                // تحويل الرابط إلى سيرفر جوجل المفتوح للصور
+                return `https://lh3.googleusercontent.com/d/${match[1]}`;
             }
             return url;
         }
 
-        // دالة تنظيف اللغات نهائياً من أي تداخل
-        function getCleanLanguageText(item, fieldType, lang) {
-            let key = `${fieldType}_${lang}`;
-            let text = "";
+        // دالة حجب التداخل اللغوي المطلق: لا تعرض سوى اللغة المختارة
+        function getStrictCleanField(item, fieldType, lang) {
+            const key = `${fieldType}_${lang}`;
+            if (item[key] && item[key].trim() !== '') return item[key].trim();
 
-            if (item[key] && typeof item[key] === 'string' && item[key].trim() !== '') {
-                text = item[key].trim();
-            } else {
-                for (let prop in item) {
-                    if (prop.trim().toLowerCase() === key.toLowerCase() && item[prop] && item[prop].trim() !== '') {
-                        text = item[prop].trim();
-                        break;
-                    }
-                }
-            }
+            // منع أي لغة أخرى من الظهور مكان اللغة المطلوبة في الوصف (Desc)
+            if (fieldType === 'Desc') return '';
             
-            if (lang === 'EN' || lang === 'AR') {
-                if (text.toLowerCase().includes('kamel') || /[\u0400-\u04FF]/.test(text)) return '';
-            }
-            return text;
+            // في حالة عدم توفر اسم باللغة المطلوبة، يقرأ الإنجليزي أو العربي فقط حتى لا يترك الكارت بدون اسم
+            if (item['Name_AR'] && item['Name_AR'].trim() !== '') return item['Name_AR'].trim();
+            if (item['Name_EN'] && item['Name_EN'].trim() !== '') return item['Name_EN'].trim();
+            
+            return 'Product';
         }
 
         function renderItems(data, containerId, isPackage) {
@@ -369,17 +354,13 @@
                 if (!item.ID && !item.Price) return;
                 validCount++;
                 
-                let name = getCleanLanguageText(item, 'Name', currentLang) || item.Name_AR || item.Name_EN || "Cosmetic Product";
-                let desc = getCleanLanguageText(item, 'Desc', currentLang);
+                let name = getStrictCleanField(item, 'Name', currentLang);
+                let desc = getStrictCleanField(item, 'Desc', currentLang);
                 
-                // التأكد من تحويل رابط درايف إن وُجد
-                let image = "";
-                if (item.Image_URL && item.Image_URL.length > 5) {
-                    image = convertDriveLink(item.Image_URL.trim());
-                }
+                // استخدام الرابط المحوّل والمفكوك حمايته
+                let image = convertDriveLinkForImages(item.Image_URL ? item.Image_URL.trim() : "");
 
                 const price = item.Price || "0";
-                
                 let isAvailable = true;
                 if (item.In_Stock) {
                     const stockVal = item.In_Stock.toString().trim().toLowerCase();
@@ -390,7 +371,7 @@
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                         <div>
                             <div class="relative overflow-hidden bg-slate-50 h-56 flex items-center justify-center">
-                                ${image ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<div class="text-5xl text-slate-300">🧴</div>`}
+                                ${image ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80'">` : `<div class="text-5xl text-slate-300">🧴</div>`}
                                 ${isPackage ? `<span class="absolute top-3 right-3 bg-brandOrange text-white text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full shadow-lg uppercase">PACKAGE</span>` : ''}
                             </div>
                             <div class="p-5">
