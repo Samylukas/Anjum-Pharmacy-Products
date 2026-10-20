@@ -40,24 +40,21 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
 
-        /* Olive Leaves Natural Flying Animations */
-        @keyframes flyInTL { 0% { transform: translate(-250px, -250px) rotate(-120deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
-        @keyframes flyInTR { 0% { transform: translate(250px, -250px) rotate(120deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
-        @keyframes flyInBL { 0% { transform: translate(-250px, 250px) rotate(-60deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
-        @keyframes flyInBR { 0% { transform: translate(250px, 250px) rotate(60deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
-        @keyframes branchGrow { 0% { stroke-dashoffset: 600; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+        @keyframes flyInLeft { 0% { transform: translate(-200px, 0) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
+        @keyframes flyInRight { 0% { transform: translate(200px, 0) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
+        @keyframes flyInTop { 0% { transform: translate(0, -200px) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
+        @keyframes branchGrow { 0% { stroke-dashoffset: 500; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 1; } }
         @keyframes fadeInText { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        .leaf-tl { animation: flyInTL 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s; opacity: 0; }
-        .leaf-tr { animation: flyInTR 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s; opacity: 0; }
-        .leaf-bl { animation: flyInBL 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; opacity: 0; }
-        .leaf-br { animation: flyInBR 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s; opacity: 0; }
+        .leaf-left { animation: flyInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; opacity: 0; }
+        .leaf-right { animation: flyInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s; opacity: 0; }
+        .leaf-top { animation: flyInTop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s; opacity: 0; }
         
-        .branch-path { stroke-dasharray: 600; stroke-dashoffset: 600; animation: branchGrow 1.4s ease-out forwards; }
+        .branch-path { stroke-dasharray: 500; stroke-dashoffset: 500; animation: branchGrow 1.2s ease-out forwards; }
         .fade-in-text { animation: fadeInText 1s ease-out forwards 1.2s; opacity: 0; }
 
         .glass-modal {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
@@ -65,39 +62,42 @@
 </head>
 <body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
 
-    <!-- 1. WHITE SPLASH SCREEN ANIMATION -->
+    <!-- 1. SPLASH SCREEN ANIMATION -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
         
         <div class="relative w-64 h-64 mb-2 flex items-center justify-center">
-            <!-- Natural Realistic Olive Branch SVG -->
-            <svg class="w-full h-full drop-shadow-[0_10px_20px_rgba(46,125,50,0.15)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Curved Natural Stem -->
-                <path class="branch-path" d="M35 165 C 65 145, 95 110, 165 35" stroke="#5d4037" stroke-width="3.5" stroke-linecap="round"/>
+            <svg class="w-full h-full drop-shadow-[0_10px_15px_rgba(46,125,50,0.12)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Straight Symmetrical Stem -->
+                <path class="branch-path" d="M100 180 L100 30" stroke="#6d4c41" stroke-width="4" stroke-linecap="round"/>
                 
-                <!-- Realistic Olive Leaves & Olives Group 1 (Top Left) -->
-                <g class="leaf-tl">
-                    <path d="M 85 115 C 60 100, 40 80, 50 70 C 70 70, 85 90, 85 115 Z" fill="#2e7d32"/>
-                    <path d="M 85 115 C 68 102, 52 86, 50 70" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="65" cy="100" rx="5" ry="8" transform="rotate(-30 65 100)" fill="#33691e"/>
+                <!-- TOP POINTY LEAF -->
+                <g class="leaf-top">
+                    <path d="M 100 30 C 92 15, 95 0, 100 -5 C 105 0, 108 15, 100 30 Z" fill="#2e7d32"/>
+                    <line x1="100" y1="30" x2="100" y2="0" stroke="#1b5e20" stroke-width="0.8"/>
                 </g>
 
-                <!-- Group 2 (Top Right) -->
-                <g class="leaf-tr">
-                    <path d="M 125 75 C 145 55, 165 45, 170 55 C 160 75, 140 85, 125 75 Z" fill="#43a047"/>
-                    <path d="M 125 75 C 142 62, 158 52, 170 55" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="140" cy="62" rx="5" ry="7.5" transform="rotate(25 140 62)" fill="#33691e"/>
+                <!-- PAIR 1 (Upper Symmetrical Pointy Leaves) -->
+                <g class="leaf-left">
+                    <path d="M 100 70 C 70 60, 50 45, 45 50 C 55 70, 80 75, 100 70 Z" fill="#388e3c"/>
+                    <line x1="100" y1="70" x2="52" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
+                    <ellipse cx="78" cy="62" rx="4" ry="6" transform="rotate(-25 78 62)" fill="#33691e"/>
+                </g>
+                <g class="leaf-right">
+                    <path d="M 100 70 C 130 60, 150 45, 155 50 C 145 70, 120 75, 100 70 Z" fill="#388e3c"/>
+                    <line x1="100" y1="70" x2="148" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
+                    <ellipse cx="122" cy="62" rx="4" ry="6" transform="rotate(25 122 62)" fill="#33691e"/>
                 </g>
 
-                <!-- Group 3 (Bottom Left) -->
-                <g class="leaf-bl">
-                    <path d="M 105 95 C 90 115, 75 130, 68 122 C 75 105, 92 92, 105 95 Z" fill="#1b5e20"/>
-                    <ellipse cx="88" cy="112" rx="4.5" ry="7" transform="rotate(-15 88 112)" fill="#1a237e"/>
+                <!-- PAIR 2 (Lower Symmetrical Pointy Leaves) -->
+                <g class="leaf-left">
+                    <path d="M 100 120 C 65 110, 40 95, 35 100 C 48 122, 75 128, 100 120 Z" fill="#2e7d32"/>
+                    <line x1="100" y1="120" x2="42" y2="102" stroke="#1b5e20" stroke-width="0.8"/>
+                    <ellipse cx="72" cy="110" rx="4.5" ry="7" transform="rotate(-20 72 110)" fill="#1b5e20"/>
                 </g>
-
-                <!-- Group 4 (Bottom Right) -->
-                <g class="leaf-br">
-                    <path d="M 125 75 C 112 55, 98 40, 105 35 C 120 40, 128 60, 125 75 Z" fill="#388e3c"/>
-                    <ellipse cx="112" cy="55" rx="4.5" ry="7" transform="rotate(40 112 55)" fill="#33691e"/>
+                <g class="leaf-right">
+                    <path d="M 100 120 C 135 110, 160 95, 165 100 C 152 122, 125 128, 100 120 Z" fill="#2e7d32"/>
+                    <line x1="100" y1="120" x2="158" y2="102" stroke="#1b5e20" stroke-width="0.8"/>
+                    <ellipse cx="128" cy="110" rx="4.5" ry="7" transform="rotate(20 128 110)" fill="#1b5e20"/>
                 </g>
             </svg>
         </div>
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <!-- 2. WHITE LANGUAGE SELECTOR MODAL -->
+    <!-- 2. LANGUAGE SELECTOR MODAL -->
     <div id="language-modal" class="fixed inset-0 z-40 bg-white/95 glass-modal hidden flex items-center justify-center p-4 transition-all duration-500">
         <div class="bg-white border border-slate-200 p-6 md:p-10 rounded-3xl max-w-3xl w-full shadow-2xl text-center relative">
             <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold border border-emerald-100 shadow-sm">
@@ -196,7 +196,91 @@
         </div>
     </div>
 
-    <!-- 3. WHITE HEADER NAVBAR -->
+    <!-- 3. ADMIN CONTROL MODAL (Hidden Password Admin Panel) -->
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
+
+            <!-- Password Auth Screen -->
+            <div id="admin-auth" class="text-center py-6">
+                <div class="w-12 h-12 bg-orange-100 text-brandOrange rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl">🔒</div>
+                <h3 class="text-xl font-extrabold text-navyDark mb-1">لوحة التحكم للإدارة</h3>
+                <p class="text-slate-500 text-sm mb-6">يرجى إدخال كلمة المرور المخصصة</p>
+
+                <input type="password" id="admin-pass-input" placeholder="كلمة المرور..." class="w-full max-w-xs px-4 py-3 rounded-xl border border-slate-300 mb-4 text-center text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-brandOrange">
+                <div>
+                    <button onclick="verifyAdminPass()" class="bg-navyDark hover:bg-brandOrange text-white font-bold px-8 py-3 rounded-xl transition">دخول</button>
+                </div>
+            </div>
+
+            <!-- Admin Form Screen -->
+            <div id="admin-panel" class="hidden">
+                <div class="flex border-b border-slate-200 mb-6">
+                    <button id="tab-btn-product" onclick="switchAdminTab('product')" class="py-2 px-4 border-b-2 border-brandOrange text-brandOrange font-bold">إضافة منتج جديد</button>
+                    <button id="tab-btn-package" onclick="switchAdminTab('package')" class="py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800">إنشاء باقة عروض</button>
+                </div>
+
+                <!-- ADD PRODUCT FORM -->
+                <form id="add-product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج (باللغة العربية فقط):</label>
+                        <input type="text" id="p-name-ar" required placeholder="مثال: بندول اكسترا 500 مجم" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">وصف المنتج (باللغة العربية فقط):</label>
+                        <textarea id="p-desc-ar" rows="2" placeholder="مسكن سريع للآلام وصداع الرأس..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">السعر (EGP):</label>
+                            <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة المنتج (URL):</label>
+                            <input type="url" id="p-img" required placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" id="btn-save-product" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                            ✨ حفظ وترجمة فورية لجميع اللغات 9
+                        </button>
+                    </div>
+                </form>
+
+                <!-- ADD PACKAGE FORM -->
+                <form id="add-package-form" onsubmit="handlePackageSubmit(event)" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">اسم الباقة/العرض (بالعربي):</label>
+                        <input type="text" id="pkg-name-ar" required placeholder="مثال: باقة العناية الشاملة بالبشرة" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">سعر الباقة الإجمالي (EGP):</label>
+                        <input type="number" id="pkg-price" required placeholder="450" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة الباقة (URL):</label>
+                        <input type="url" id="pkg-img" required placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">اختر المنتجات المدرجة في العرض:</label>
+                        <div id="admin-products-checkboxes" class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-3 space-y-2 bg-slate-50 text-xs">
+                            <!-- Checkboxes injected dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" id="btn-save-package" class="w-full bg-navyDark hover:bg-brandOrange text-white font-bold py-3 rounded-xl transition shadow-md">
+                            🎁 نشر الباقة
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. WHITE HEADER NAVBAR -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm hidden" id="main-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -204,7 +288,10 @@
                     🌿
                 </div>
                 <div>
-                    <span class="text-xl font-extrabold tracking-tight text-navyDark block">Anjum Green</span>
+                    <!-- Hidden Admin Trigger Button on "Anjum Green" -->
+                    <button onclick="openAdminModal()" class="text-left focus:outline-none group">
+                        <span class="text-xl font-extrabold tracking-tight text-navyDark group-hover:text-brandOrange transition block">Anjum Green</span>
+                    </button>
                     <span class="text-xs text-brandOrange font-extrabold tracking-widest uppercase block -mt-1">Pharmacy</span>
                 </div>
             </div>
@@ -215,7 +302,7 @@
         </div>
     </header>
 
-    <!-- 4. DASHBOARD & MAIN CONTENT -->
+    <!-- 5. DASHBOARD & MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow hidden" id="main-content">
         
         <!-- DISCLAIMER BANNER -->
@@ -270,6 +357,9 @@
     <script>
         const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
+        
+        // YOUR EXECUTABLE GOOGLE APPS SCRIPT WEB APP URL
+        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
 
         const uiTranslations = {
             EN: { 
@@ -320,8 +410,8 @@
         };
 
         let currentLang = null;
+        let loadedProductsList = [];
 
-        // Auto sequence: White Splash screen -> Language Selector Modal
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -330,7 +420,7 @@
                     splash.classList.add('hidden');
                     showLanguageSelector();
                 }, 700);
-            }, 3200);
+            }, 3000);
         });
 
         function showLanguageSelector() {
@@ -368,7 +458,9 @@
                     download: true,
                     header: true,
                     complete: function(results) {
+                        loadedProductsList = results.data;
                         renderItems(results.data, 'products-container', false);
+                        populateAdminCheckboxes(results.data);
                     }
                 });
             }
@@ -395,8 +487,8 @@
                 if (!item.ID && !item.Price && !item.Name_EN) return;
 
                 validCount++;
-                const name = item[`Name_${currentLang}`] || item.Name_EN || "Product";
-                const desc = item[`Desc_${currentLang}`] || item.Desc_EN || "";
+                const name = item[`Name_${currentLang}`] || item.Name_EN || item.Name_AR || "Product";
+                const desc = item[`Desc_${currentLang}`] || item.Desc_EN || item.Desc_AR || "";
                 const image = item.Image_URL || "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
                 const price = item.Price || "0";
                 const isAvailable = item.In_Stock ? (item.In_Stock.toLowerCase() === 'true' || item.In_Stock === '1' || item.In_Stock.toLowerCase() === 'yes') : true;
@@ -437,6 +529,145 @@
             if (validCount === 0) {
                 container.innerHTML = `<div class="col-span-full py-10 text-center text-slate-400 font-medium">No items currently listed.</div>`;
             }
+        }
+
+        // --- ADMIN PANEL LOGIC ---
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function verifyAdminPass() {
+            const input = document.getElementById('admin-pass-input').value;
+            if (input === '102030') {
+                document.getElementById('admin-auth').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+            } else {
+                alert('كلمة المرور غير صحيحة!');
+            }
+        }
+
+        function switchAdminTab(tab) {
+            if (tab === 'product') {
+                document.getElementById('add-product-form').classList.remove('hidden');
+                document.getElementById('add-package-form').classList.add('hidden');
+                document.getElementById('tab-btn-product').className = 'py-2 px-4 border-b-2 border-brandOrange text-brandOrange font-bold';
+                document.getElementById('tab-btn-package').className = 'py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800';
+            } else {
+                document.getElementById('add-product-form').classList.add('hidden');
+                document.getElementById('add-package-form').classList.remove('hidden');
+                document.getElementById('tab-btn-package').className = 'py-2 px-4 border-b-2 border-brandOrange text-brandOrange font-bold';
+                document.getElementById('tab-btn-product').className = 'py-2 px-4 border-b-2 border-transparent text-slate-500 font-bold hover:text-slate-800';
+            }
+        }
+
+        function populateAdminCheckboxes(products) {
+            const container = document.getElementById('admin-products-checkboxes');
+            if (!container) return;
+            container.innerHTML = '';
+
+            products.forEach(p => {
+                if (!p.Name_AR && !p.Name_EN) return;
+                const name = p.Name_AR || p.Name_EN;
+                const checkbox = `
+                    <label class="flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-1 rounded">
+                        <input type="checkbox" value="${name}" class="pkg-product-choice accent-brandOrange">
+                        <span>${name} (${p.Price || 0} EGP)</span>
+                    </label>
+                `;
+                container.innerHTML += checkbox;
+            });
+        }
+
+        // Auto Translation Helper
+        async function translateText(text, targetLang) {
+            try {
+                const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+                const data = await res.json();
+                return data[0][0][0];
+            } catch (err) {
+                return text; // fallback
+            }
+        }
+
+        async function handleProductSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-save-product');
+            btn.disabled = true;
+            btn.innerText = 'جاري الترجمة والحفظ... ⏳';
+
+            const nameAr = document.getElementById('p-name-ar').value;
+            const descAr = document.getElementById('p-desc-ar').value;
+            const price = document.getElementById('p-price').value;
+            const img = document.getElementById('p-img').value;
+
+            const langCodes = ['en', 'pl', 'ru', 'cs', 'de', 'it', 'uk', 'de']; // Swiss maps to de
+
+            const translationsName = {};
+            const translationsDesc = {};
+
+            for (let lang of langCodes) {
+                translationsName[lang.toUpperCase()] = await translateText(nameAr, lang);
+                translationsDesc[lang.toUpperCase()] = descAr ? await translateText(descAr, lang) : '';
+            }
+
+            const payload = {
+                type: 'Products',
+                ID: Date.now().toString(),
+                Image_URL: img,
+                Price: price,
+                Name_AR: nameAr, Name_EN: translationsName['EN'], Name_PL: translationsName['PL'], Name_RU: translationsName['RU'], Name_CS: translationsName['CS'], Name_DE: translationsName['DE'], Name_IT: translationsName['IT'], Name_UK: translationsName['UK'], Name_CH: translationsName['DE'],
+                Desc_AR: descAr, Desc_EN: translationsDesc['EN'], Desc_PL: translationsDesc['PL'], Desc_RU: translationsDesc['RU'], Desc_CS: translationsDesc['CS'], Desc_DE: translationsDesc['DE'], Desc_IT: translationsDesc['IT'], Desc_UK: translationsDesc['UK'], Desc_CH: translationsDesc['DE']
+            };
+
+            sendToGoogleSheet(payload);
+        }
+
+        async function handlePackageSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-save-package');
+            btn.disabled = true;
+            btn.innerText = 'جاري النشر... ⏳';
+
+            const nameAr = document.getElementById('pkg-name-ar').value;
+            const price = document.getElementById('pkg-price').value;
+            const img = document.getElementById('pkg-img').value;
+
+            const selectedProducts = [];
+            document.querySelectorAll('.pkg-product-choice:checked').forEach(cb => selectedProducts.push(cb.value));
+
+            const descAr = "يشمل العرض: " + selectedProducts.join(" + ");
+            const nameEn = await translateText(nameAr, 'en');
+            const descEn = await translateText(descAr, 'en');
+
+            const payload = {
+                type: 'Packages',
+                ID: Date.now().toString(),
+                Image_URL: img,
+                Price: price,
+                Name_AR: nameAr, Name_EN: nameEn, Name_PL: nameEn, Name_RU: nameEn, Name_CS: nameEn, Name_DE: nameEn, Name_IT: nameEn, Name_UK: nameEn, Name_CH: nameEn,
+                Desc_AR: descAr, Desc_EN: descEn, Desc_PL: descEn, Desc_RU: descEn, Desc_CS: descEn, Desc_DE: descEn, Desc_IT: descEn, Desc_UK: descEn, Desc_CH: descEn
+            };
+
+            sendToGoogleSheet(payload);
+        }
+
+        function sendToGoogleSheet(payload) {
+            fetch(SCRIPT_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert('تمت الإضافة بنجاح! قد تستغرق بضع ثوانٍ للظهور.');
+                location.reload();
+            }).catch(err => {
+                alert('حدث خطأ أثناء الإرسال.');
+                console.error(err);
+            });
         }
     </script>
 </body>
