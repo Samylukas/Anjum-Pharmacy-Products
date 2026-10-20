@@ -1,0 +1,51 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main" ] # سيعمل تلقائياً عند أي تعديل
+  workflow_dispatch: # يضيف زر لتشغيله يدوياً متى شئت
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 سحب ملفات الموقع
+        uses: actions/checkout@v4
+
+      - name: ⚙️ إعداد بيئة Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: ☕ إعداد بيئة Java 17 للأندرويد
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🏗️ تحويل الموقع لتطبيق أندرويد أصلي (Capacitor)
+        run: |
+          # 1. تجميع كل ملفات الموقع في مجلد واحد
+          mkdir www
+          rsync -av --exclude='www' --exclude='.git' --exclude='.github' ./ ./www/
+          
+          # 2. تثبيت مكتبات Capacitor وتغليف التطبيق
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init "Anjum Green" "com.anjumgreen.pharmacy" --web-dir "www"
+          
+          # 3. إضافة منصة أندرويد ودمج الملفات
+          npx cap add android
+          npx cap copy android
+          
+          # 4. بناء ملف الـ APK النهائي
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: 🚀 رفع ملف الـ APK الجاهز للتحميل
+        uses: actions/upload-artifact@v4
+        with:
+          name: Anjum-Green-Pharmacy-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
