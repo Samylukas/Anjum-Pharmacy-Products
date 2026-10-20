@@ -52,6 +52,12 @@
 </head>
 <body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
 
+    <!-- IMAGE LIGHTBOX MODAL (تكبير الصورة) -->
+    <div id="image-lightbox" class="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-md hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white bg-white/20 hover:bg-white/40 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition backdrop-blur-md" onclick="closeLightbox()">✕</button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
     <!-- SPLASH SCREEN -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
         <div id="splash-logo-container" class="relative w-80 h-80 md:w-96 md:h-96 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
@@ -201,24 +207,36 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow hidden" id="main-content">
         <section class="mb-14">
-            <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-3">
-                <div class="flex items-center gap-3"><span class="text-2xl">🎁</span><h2 id="packages-title" class="text-2xl font-extrabold text-navyDark tracking-tight">Special Packages</h2></div>
+            <div class="flex items-center justify-between mb-8 border-b-2 border-slate-100 pb-4">
+                <div class="flex items-center gap-3"><span class="text-3xl">🎁</span><h2 id="packages-title" class="text-3xl font-extrabold text-navyDark tracking-tight">Special Packages</h2></div>
             </div>
-            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
 
         <section>
-            <div class="flex items-center justify-between mb-6 border-b border-slate-200 pb-3">
-                <div class="flex items-center gap-3"><span class="text-2xl">🧴✨</span><h2 id="products-title" class="text-2xl font-extrabold text-navyDark tracking-tight">Our Products</h2></div>
+            <div class="flex items-center justify-between mb-8 border-b-2 border-slate-100 pb-4">
+                <div class="flex items-center gap-3"><span class="text-3xl">🧴✨</span><h2 id="products-title" class="text-3xl font-extrabold text-navyDark tracking-tight">Our Products</h2></div>
             </div>
-            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
         </section>
     </main>
 
     <script>
         const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
-        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwbhyqbI3M1AYX5jy_pH4QZWwU0hwJ_sWNhaAqXqol0opo14-0oXL88aTcv0XzLqQxN/exec";
+        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
+
+        const uiTranslations = {
+            EN: { title: "Our Cosmetic Products", packages: "Special Cosmetic Packages", stock: "In Stock", outStock: "Out of Stock", enlarge: "Zoom" },
+            AR: { title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", outStock: "غير متوفر", enlarge: "تكبير" },
+            PL: { title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", outStock: "Brak w magazynie", enlarge: "Powiększ" },
+            RU: { title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", outStock: "Нет в наличии", enlarge: "Увеличить" },
+            CS: { title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", outStock: "Vyprodáno", enlarge: "Zvětšit" },
+            DE: { title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", outStock: "Nicht auf Lager", enlarge: "Vergrößern" },
+            IT: { title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", outStock: "Esaurito", enlarge: "Ingrandisci" },
+            UK: { title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", outStock: "Немає в наявності", enlarge: "Збільшити" },
+            CH: { title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", outStock: "Ufverchauft", enlarge: "Vergrössere" }
+        };
 
         let currentLang = 'EN';
         let globalProducts = [];
@@ -243,11 +261,23 @@
             document.getElementById('main-nav').classList.remove('hidden');
             document.getElementById('main-content').classList.remove('hidden');
             document.getElementById('current-lang-code').innerText = lang;
+
+            if (lang === 'AR') {
+                document.documentElement.dir = "rtl";
+                document.documentElement.lang = "ar";
+            } else {
+                document.documentElement.dir = "ltr";
+                document.documentElement.lang = lang.toLowerCase();
+            }
+
+            const texts = uiTranslations[lang] || uiTranslations.EN;
+            document.getElementById('products-title').innerText = texts.title;
+            document.getElementById('packages-title').innerText = texts.packages;
+
             fetchData();
         }
 
         function fetchData() {
-            // كاسر الكاش لمنع التخزين المؤقت (لحل مشكلة الريفريش)
             const ts = new Date().getTime();
             Papa.parse(`${PRODUCTS_SHEET_URL}&_=${ts}`, { download: true, header: true, complete: function(res) {
                 globalProducts = res.data.filter(i => i.ID);
@@ -267,23 +297,70 @@
             return match ? `https://lh3.googleusercontent.com/d/${match[1]}` : url;
         }
 
+        // -------- Lightbox Functions --------
+        function openLightbox(imgUrl) {
+            if (!imgUrl || imgUrl === 'undefined') return;
+            const lb = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = imgUrl;
+            lb.classList.remove('hidden');
+            void lb.offsetWidth; // Trigger reflow
+            lb.classList.remove('opacity-0');
+            img.classList.remove('scale-95');
+            img.classList.add('scale-100');
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            lb.classList.add('opacity-0');
+            img.classList.remove('scale-100');
+            img.classList.add('scale-95');
+            setTimeout(() => {
+                lb.classList.add('hidden');
+                img.src = '';
+            }, 300);
+        }
+        // ------------------------------------
+
         function renderItems(data, containerId, isPkg) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
+            const texts = uiTranslations[currentLang] || uiTranslations.EN;
+
             data.forEach(item => {
                 let name = item[`Name_${currentLang}`] || item.Name_AR || item.Name_EN || "Product";
                 let desc = item[`Desc_${currentLang}`] || '';
                 let img = getDriveDirectUrl(item.Image_URL);
+                const price = item.Price || "0";
                 
+                let isAvailable = true;
+                if (item.In_Stock) {
+                    const stockVal = item.In_Stock.toString().trim().toLowerCase();
+                    if (stockVal === 'false' || stockVal === '0' || stockVal === 'no') isAvailable = false;
+                }
+
                 container.innerHTML += `
-                    <div class="bg-white rounded-2xl border shadow-sm hover:shadow-xl transition overflow-hidden">
-                        <div class="h-56 bg-slate-50 flex items-center justify-center p-2">
-                            ${img ? `<img src="${img}" class="w-full h-full object-contain rounded-xl hover:scale-105 transition">` : `🧴`}
+                    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer">
+                        <div class="relative w-full h-72 overflow-hidden bg-slate-50" onclick="openLightbox('${img}')">
+                            ${img ? `<img src="${img}" alt="${name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out">` : `<div class="w-full h-full flex items-center justify-center text-6xl text-slate-200">🧴</div>`}
+                            ${isPkg ? `<div class="absolute top-4 right-4 bg-gradient-to-r from-brandOrange to-orange-400 text-white text-[11px] font-black tracking-widest px-4 py-1.5 rounded-full shadow-lg uppercase z-10">PACKAGE</div>` : ''}
+                            
+                            <!-- Overlay Hint -->
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                                <span class="bg-white/95 text-navyDark px-5 py-2.5 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">🔍 ${texts.enlarge}</span>
+                            </div>
                         </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-bold text-navyDark">${name}</h3>
-                            <p class="text-sm text-slate-500 mt-1 line-clamp-2">${desc}</p>
-                            <div class="mt-4 pt-3 border-t text-2xl font-extrabold text-navyDark">${item.Price || 0} <span class="text-xs">EGP</span></div>
+                        <div class="p-6 flex flex-col grow">
+                            <h3 class="text-xl font-extrabold text-navyDark leading-tight mb-2">${name}</h3>
+                            ${desc ? `<p class="text-slate-500 text-sm line-clamp-2 leading-relaxed mb-4">${desc}</p>` : ''}
+                            <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-3xl font-black text-brandGreen">${price}</span>
+                                    <span class="text-sm font-bold text-slate-400">EGP</span>
+                                </div>
+                                <span class="text-xs font-bold px-3 py-1.5 rounded-full ${isAvailable ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}">${isAvailable ? texts.stock : texts.outStock}</span>
+                            </div>
                         </div>
                     </div>`;
             });
