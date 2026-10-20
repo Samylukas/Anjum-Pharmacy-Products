@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.samylukas.twa",
+        "sha256_cert_fingerprints": ["96:47:57:8B:22:7D:A1:58:33:2F:C7:58:12:82:E9:4B:09:8F:40:43:0C:8C:4B:9E:CD:E6:3E:5D:F2:1E:21:97"]
+      }
+    }]
