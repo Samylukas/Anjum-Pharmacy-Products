@@ -33,7 +33,6 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; scroll-behavior: smooth; }
         
-        /* تأثيرات السبلاش سكرين */
         @keyframes cinematicZoom {
             0% { transform: scale(0.3) rotate(-10deg); opacity: 0; filter: blur(10px); }
             50% { transform: scale(1.1) rotate(2deg); opacity: 0.9; filter: blur(0px); }
@@ -45,13 +44,12 @@
         }
         @keyframes smokeExit { 0% { transform: scale(1); opacity: 1; filter: blur(0px); } 100% { transform: scale(3.5); opacity: 0; filter: blur(25px); } }
 
-        /* سحابة اللغات المتحركة */
         @keyframes floatWord {
             0% { transform: translateY(10px) scale(0.9); opacity: 0; }
             50% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-5px) scale(0.95); opacity: 0.8; }
         }
-        .word-cloud-item { animation: floatWord 2s ease-in-out infinite alternate; }
+        .word-cloud-item { animation: floatWord 2.5s ease-in-out infinite alternate; }
         .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.5s; } .delay-3 { animation-delay: 0.8s; } .delay-4 { animation-delay: 1.1s; } .delay-5 { animation-delay: 1.4s; }
 
         .splash-logo-animated { animation: cinematicZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, pulseGlow 3s infinite; }
@@ -68,22 +66,22 @@
         <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
     </div>
 
-    <!-- ✨ SPLASH SCREEN (مع سحابة اللغات العالمية) ✨ -->
+    <!-- ✨ SPLASH SCREEN ✨ -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
         <div id="splash-logo-container" class="relative w-72 h-72 md:w-80 md:h-80 mb-6 rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-100 splash-logo-animated flex items-center justify-center bg-white p-3">
             <img src="logo.jpeg" alt="Anjum Green Pharmacy" class="w-full h-full object-contain rounded-2xl" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80';">
         </div>
         
-        <!-- سحابة الكلمات الترحيبية العالمية -->
-        <div id="splash-text-container" class="relative mt-4 flex flex-wrap justify-center items-center max-w-2xl gap-x-6 gap-y-2">
-            <span class="word-cloud-item text-4xl font-extrabold text-navyDark delay-1">أهلاً بكم</span>
-            <span class="word-cloud-item text-2xl font-semibold text-brandOrange delay-3">Welcome</span>
-            <span class="word-cloud-item text-3xl font-bold text-emerald-600 delay-2">Willkommen</span>
-            <span class="word-cloud-item text-xl font-medium text-slate-600 delay-5">Benvenuto</span>
-            <span class="word-cloud-item text-2xl font-bold text-sky-600 delay-4">Добро пожаловать</span>
-            <span class="word-cloud-item text-xl font-semibold text-rose-500 delay-2">Witamy</span>
-            <span class="word-cloud-item text-3xl font-bold text-purple-600 delay-1">Vítejte</span>
-            <span class="word-cloud-item text-lg font-medium text-amber-500 delay-3">Ласкаво просимо</span>
+        <!-- سحابة الكلمات الترحيبية -->
+        <div id="splash-text-container" class="relative mt-4 flex flex-wrap justify-center items-center max-w-2xl gap-x-6 gap-y-3">
+            <span class="word-cloud-item text-5xl font-extrabold text-navyDark delay-1">أهلاً بكم</span>
+            <span class="word-cloud-item text-3xl font-semibold text-brandOrange delay-3">Welcome</span>
+            <span class="word-cloud-item text-4xl font-bold text-emerald-600 delay-2">Willkommen</span>
+            <span class="word-cloud-item text-2xl font-medium text-slate-600 delay-5">Benvenuto</span>
+            <span class="word-cloud-item text-3xl font-bold text-sky-600 delay-4">Добро пожаловать</span>
+            <span class="word-cloud-item text-2xl font-semibold text-rose-500 delay-2">Witamy</span>
+            <span class="word-cloud-item text-4xl font-bold text-purple-600 delay-1">Vítejte</span>
+            <span class="word-cloud-item text-xl font-medium text-amber-500 delay-3">Ласкаво просимо</span>
         </div>
     </div>
 
@@ -155,7 +153,7 @@
                         <div><label class="block text-sm font-bold text-slate-700 mb-1">السعر (EGP):</label><input type="number" id="p-price" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
                         <div><label class="block text-sm font-bold text-slate-700 mb-1">رابط الصورة (درايف):</label><input type="url" id="p-img" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
                     </div>
-                    <div class="pt-2"><button type="submit" id="btn-save-p" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-md text-lg">✨ حفظ وترجمة</button></div>
+                    <div class="pt-2"><button type="submit" id="btn-save-p" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-md text-lg">✨ حفظ البيانات</button></div>
                 </form>
 
                 <!-- Package Form -->
@@ -166,7 +164,7 @@
                     <div><label class="block text-sm font-bold text-slate-700 mb-1">سعر الباقة (EGP):</label><input type="number" id="pkg-price" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
                     <div><label class="block text-sm font-bold text-slate-700 mb-1">رابط صورة الباقة (درايف):</label><input type="url" id="pkg-img" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
                     <div><label class="block text-sm font-bold text-slate-700 mb-2">اختر المنتجات المدرجة:</label><div id="admin-products-checkboxes" class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50 text-sm"></div></div>
-                    <div class="pt-2"><button type="submit" id="btn-save-pkg" class="w-full bg-navyDark hover:bg-brandOrange text-white font-bold py-4 rounded-xl transition shadow-md text-lg">🎁 حفظ الباقة</button></div>
+                    <div class="pt-2"><button type="submit" id="btn-save-pkg" class="w-full bg-navyDark hover:bg-brandOrange text-white font-bold py-4 rounded-xl transition shadow-md text-lg">🎁 حفظ البيانات</button></div>
                 </form>
             </div>
         </div>
@@ -214,9 +212,11 @@
     </footer>
 
     <script>
+        // ⚠️⚠️⚠️ انتبه: ضع الرابط الجدييييد الذي استخرجته (New Deployment) في السطر القادم ⚠️⚠️⚠️
+        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwbhyqbI3M1AYX5jy_pH4QZWwU0hwJ_sWNhaAqXqol0opo14-0oXL88aTcv0XzLqQxN/exec";
+
         const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
-        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
 
         const uiTranslations = {
             EN: { title: "Our Cosmetic Products", packages: "Special Packages", stock: "In Stock", enlarge: "Zoom" },
@@ -242,7 +242,7 @@
                     document.getElementById('splash-screen').classList.add('hidden');
                     showLanguageSelector();
                 }, 1200); 
-            }, 4000); 
+            }, 4500); 
         });
 
         function showLanguageSelector() { document.getElementById('language-modal').classList.remove('hidden'); }
@@ -264,7 +264,7 @@
             fetchData();
         }
 
-        // كاسر كاش ديناميكي لتجاوز ذاكرة المتصفح بقوة
+        // إجبار التحديث وكسر الكاش
         function fetchData() {
             const ts = new Date().getTime() + Math.random(); 
             Papa.parse(`${PRODUCTS_SHEET_URL}&_=${ts}`, { download: true, header: true, complete: function(res) {
@@ -335,7 +335,6 @@
             });
         }
 
-        // ---------- Admin Panel Logic ----------
         function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
         function verifyAdminPass() {
@@ -416,12 +415,10 @@
         function deleteItem(type, id) {
             if(!confirm('هل أنت متأكد من حذف هذا العنصر نهائياً؟')) return;
             
-            // إضافة وقت عشوائي للرابط لمنع الكاش من سيرفر جوجل
-            fetch(`${SCRIPT_WEB_APP_URL}?nocache=${new Date().getTime()}`, {
+            fetch(`${SCRIPT_WEB_APP_URL}`, {
                 method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'delete', type: type, ID: id })
             }).then(() => { 
-                alert('تم الحذف بنجاح'); 
-                // إجبار المتصفح على مسح الكاش والتحميل النظيف من الشيت
+                alert('✅ تم مسح المنتج من قاعدة البيانات.\n\n⏳ ملاحظة: خوادم جوجل تحتاج حوالي 60 ثانية لتحديث الموقع المباشر. سيتم تحديث الصفحة الآن.'); 
                 window.location.href = window.location.pathname + '?v=' + new Date().getTime(); 
             });
         }
@@ -474,9 +471,9 @@
                 Desc_AR: descAr, Desc_EN: tDesc.EN, Desc_PL: tDesc.PL, Desc_RU: tDesc.RU, Desc_CS: tDesc.CS, Desc_DE: tDesc.DE, Desc_IT: tDesc.IT, Desc_UK: tDesc.UK, Desc_CH: tDesc.DE
             };
 
-            fetch(`${SCRIPT_WEB_APP_URL}?nocache=${new Date().getTime()}`, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+            fetch(`${SCRIPT_WEB_APP_URL}`, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
             .then(() => { 
-                alert('تم الحفظ بنجاح!'); 
+                alert('✅ تم حفظ البيانات بنجاح!\n\n⏳ ملاحظة: خوادم جوجل تحتاج حوالي 60 ثانية لتحديث الموقع المباشر. سيتم تحديث الصفحة الآن.'); 
                 window.location.href = window.location.pathname + '?v=' + new Date().getTime(); 
             });
         }
