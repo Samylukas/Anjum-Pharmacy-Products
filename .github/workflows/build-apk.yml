@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21' # تم التحديث هنا إلى النسخة 21 المطلوبة
+          java-version: '21'
 
       - name: 🏗️ تحويل الموقع لتطبيق أندرويد أصلي (Capacitor)
         run: |
@@ -32,12 +32,15 @@ jobs:
           
           # 2. تثبيت مكتبات Capacitor وتغليف التطبيق
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
           npx cap init "Anjum Green" "com.anjumgreen.pharmacy" --web-dir "www"
           
           # 3. إضافة منصة أندرويد ودمج الملفات
           npx cap add android
           npx cap copy android
+          
+          # 💡 الحل السحري: إجبار النظام على استخدام إصدار Kotlin موحد لمنع تعارض (Duplicate class)
+          echo "subprojects { project.configurations.all { resolutionStrategy.eachDependency { details -> if (details.requested.group == 'org.jetbrains.kotlin') { details.useVersion '1.9.22' } } } }" >> android/build.gradle
           
           # 4. بناء ملف الـ APK النهائي
           cd android
