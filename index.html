@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS with Warning Silenced -->
+    <script>
+        window.TAILWIND_DISABLE_TOUCH = true;
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- PapaParse for Google Sheets CSV -->
@@ -40,15 +43,13 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
 
-        @keyframes flyInLeft { 0% { transform: translate(-200px, 0) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
-        @keyframes flyInRight { 0% { transform: translate(200px, 0) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
-        @keyframes flyInTop { 0% { transform: translate(0, -200px) scale(0); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
+        @keyframes flyInLeft { 0% { transform: translate(-180px, 100px) rotate(-45deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
+        @keyframes flyInRight { 0% { transform: translate(180px, -100px) rotate(45deg) scale(0); opacity: 0; } 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } }
         @keyframes branchGrow { 0% { stroke-dashoffset: 500; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 1; } }
         @keyframes fadeInText { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .leaf-left { animation: flyInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; opacity: 0; }
         .leaf-right { animation: flyInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s; opacity: 0; }
-        .leaf-top { animation: flyInTop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s; opacity: 0; }
         
         .branch-path { stroke-dasharray: 500; stroke-dashoffset: 500; animation: branchGrow 1.2s ease-out forwards; }
         .fade-in-text { animation: fadeInText 1s ease-out forwards 1.2s; opacity: 0; }
@@ -65,38 +66,29 @@
     <!-- 1. SPLASH SCREEN ANIMATION -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
         <div class="relative w-64 h-64 mb-2 flex items-center justify-center">
-            <svg class="w-full h-full drop-shadow-[0_10px_15px_rgba(46,125,50,0.12)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="branch-path" d="M100 180 L100 30" stroke="#6d4c41" stroke-width="4" stroke-linecap="round"/>
-                <g class="leaf-top">
-                    <path d="M 100 30 C 92 15, 95 0, 100 -5 C 105 0, 108 15, 100 30 Z" fill="#2e7d32"/>
-                    <line x1="100" y1="30" x2="100" y2="0" stroke="#1b5e20" stroke-width="0.8"/>
-                </g>
+            <!-- Natural Olive Branch Tilted Right -->
+            <svg class="w-full h-full drop-shadow-[0_10px_15px_rgba(16,185,129,0.15)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Curved Stem Tilted Right -->
+                <path class="branch-path" d="M 50 160 C 80 140, 110 100, 155 40" stroke="#4d7c0f" stroke-width="4" stroke-linecap="round"/>
+                
+                <!-- Leaves on Left Side -->
                 <g class="leaf-left">
-                    <path d="M 100 70 C 70 60, 50 45, 45 50 C 55 70, 80 75, 100 70 Z" fill="#388e3c"/>
-                    <line x1="100" y1="70" x2="52" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="78" cy="62" rx="4" ry="6" transform="rotate(-25 78 62)" fill="#33691e"/>
+                    <path d="M 80 130 C 55 125, 40 105, 48 98 C 65 105, 78 120, 80 130 Z" fill="#15803d"/>
+                    <path d="M 112 92 C 85 85, 70 65, 78 58 C 95 65, 110 82, 112 92 Z" fill="#16a34a"/>
                 </g>
+
+                <!-- Leaves on Right Side -->
                 <g class="leaf-right">
-                    <path d="M 100 70 C 130 60, 150 45, 155 50 C 145 70, 120 75, 100 70 Z" fill="#388e3c"/>
-                    <line x1="100" y1="70" x2="148" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="122" cy="62" rx="4" ry="6" transform="rotate(25 122 62)" fill="#33691e"/>
-                </g>
-                <g class="leaf-left">
-                    <path d="M 100 120 C 65 110, 40 95, 35 100 C 48 122, 75 128, 100 120 Z" fill="#2e7d32"/>
-                    <line x1="100" y1="120" x2="42" y2="102" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="72" cy="110" rx="4.5" ry="7" transform="rotate(-20 72 110)" fill="#1b5e20"/>
-                </g>
-                <g class="leaf-right">
-                    <path d="M 100 120 C 135 110, 160 95, 165 100 C 152 122, 125 128, 100 120 Z" fill="#2e7d32"/>
-                    <line x1="100" y1="120" x2="158" y2="102" stroke="#1b5e20" stroke-width="0.8"/>
-                    <ellipse cx="128" cy="110" rx="4.5" ry="7" transform="rotate(20 128 110)" fill="#1b5e20"/>
+                    <path d="M 80 130 C 105 115, 125 115, 120 125 C 100 135, 88 135, 80 130 Z" fill="#22c55e"/>
+                    <path d="M 112 92 C 138 78, 158 78, 152 88 C 132 98, 120 98, 112 92 Z" fill="#4ade80"/>
+                    <path d="M 140 58 C 160 38, 175 35, 170 45 C 155 58, 145 62, 140 58 Z" fill="#16a34a"/>
                 </g>
             </svg>
         </div>
 
         <div class="fade-in-text">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-navyDark tracking-tight mb-2">
-                Anjum Green <span class="text-brandOrange">Pharmacy</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
+                <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span> <span class="text-brandOrange">Pharmacy</span>
             </h1>
             <p id="splash-welcome-ar" class="text-slate-700 text-lg md:text-xl font-bold mb-1">نشكركم على اختيار صيدلية أنجوم جرين</p>
             <p id="splash-welcome-en" class="text-slate-500 text-sm md:text-base font-medium tracking-wide">Thank you for choosing Anjum Green Pharmacy</p>
@@ -109,7 +101,9 @@
             <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold border border-emerald-100 shadow-sm">
                 🌿
             </div>
-            <h2 class="text-2xl md:text-3xl font-extrabold text-navyDark mb-2">Anjum Green Pharmacy</h2>
+            <h2 class="text-2xl md:text-3xl font-extrabold mb-2">
+                <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span> <span class="text-brandOrange">Pharmacy</span>
+            </h2>
             <p class="text-slate-500 text-sm md:text-base mb-8 font-medium">Please select your language / اختر لغة العرض</p>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5">
@@ -117,7 +111,6 @@
                     <span class="text-2xl">🇬🇧</span>
                     <div>
                         <div class="text-sm">English</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">ENGLISH</div>
                     </div>
                 </button>
 
@@ -125,7 +118,6 @@
                     <span class="text-2xl">🇪🇬</span>
                     <div>
                         <div class="text-sm">العربية</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">ARABIC</div>
                     </div>
                 </button>
 
@@ -133,7 +125,6 @@
                     <span class="text-2xl">🇵🇱</span>
                     <div>
                         <div class="text-sm">Polski</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">POLISH</div>
                     </div>
                 </button>
 
@@ -141,7 +132,6 @@
                     <span class="text-2xl">🇷🇺</span>
                     <div>
                         <div class="text-sm">Русский</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">RUSSIAN</div>
                     </div>
                 </button>
 
@@ -149,7 +139,6 @@
                     <span class="text-2xl">🇨🇿</span>
                     <div>
                         <div class="text-sm">Čeština</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">CZECH</div>
                     </div>
                 </button>
 
@@ -157,7 +146,6 @@
                     <span class="text-2xl">🇩🇪</span>
                     <div>
                         <div class="text-sm">Deutsch</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">GERMAN</div>
                     </div>
                 </button>
 
@@ -165,7 +153,6 @@
                     <span class="text-2xl">🇮🇹</span>
                     <div>
                         <div class="text-sm">Italiano</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">ITALIAN</div>
                     </div>
                 </button>
 
@@ -173,7 +160,6 @@
                     <span class="text-2xl">🇺🇦</span>
                     <div>
                         <div class="text-sm">Українська</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">UKRAINIAN</div>
                     </div>
                 </button>
 
@@ -181,7 +167,6 @@
                     <span class="text-2xl">🇨🇭</span>
                     <div>
                         <div class="text-sm">Schwiizertütsch</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-orange-100 uppercase">SWISS GERMAN</div>
                     </div>
                 </button>
             </div>
@@ -219,7 +204,7 @@
                         <input type="text" id="p-name-ar" required placeholder="مثال: كريم حليب الإبل المرطب" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">وصف المنتج (باللغة العربية فقط):</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">وصف المنتج (اختياري - باللغة العربية فقط):</label>
                         <textarea id="p-desc-ar" rows="2" placeholder="كريم تجميل طبيعي ناعم ومغذي للبشرة..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -228,7 +213,7 @@
                             <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع من الكمبيوتر):</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع مباشر من الكمبيوتر):</label>
                             <input type="file" id="p-file" accept="image/*" required class="w-full px-2 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer">
                         </div>
                     </div>
@@ -281,7 +266,9 @@
                 </div>
                 <div>
                     <button onclick="openAdminModal()" class="text-left focus:outline-none group">
-                        <span class="text-xl font-extrabold tracking-tight text-navyDark group-hover:text-brandOrange transition block">Anjum Green</span>
+                        <span class="text-xl font-extrabold tracking-tight group-hover:opacity-80 transition block">
+                            <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span>
+                        </span>
                     </button>
                     <span class="text-xs text-brandOrange font-extrabold tracking-widest uppercase block -mt-1">Pharmacy</span>
                 </div>
@@ -465,13 +452,16 @@
             }
         }
 
+        // دالة حاسمة لمنع تداخل اللغات: تقرأ الحقل المطلوب للغة فقط
         function getStrictField(item, fieldType, lang) {
             const key = `${fieldType}_${lang}`;
             
+            // 1. البحث الدقيق باسم العمود المتطابق
             if (item[key] && typeof item[key] === 'string' && item[key].trim() !== '') {
                 return item[key].trim();
             }
 
+            // 2. البحث بدون تدقيق حالة الأحرف
             for (let prop in item) {
                 if (prop.trim().toLowerCase() === key.toLowerCase()) {
                     if (item[prop] && item[prop].trim() !== '') {
@@ -480,6 +470,7 @@
                 }
             }
 
+            // Fallback حصري: إذا لم يجد النص بنفس اللغة، يقرأ الإنجليزي أو العربي فقط بدون المرور باللغات الأخرى
             if (lang !== 'EN' && item[`${fieldType}_EN`] && item[`${fieldType}_EN`].trim() !== '') {
                 return item[`${fieldType}_EN`].trim();
             }
@@ -502,10 +493,12 @@
 
                 validCount++;
                 
+                // جلب اسم المنتج فقط بلغة الواجهة الحالية
                 let name = getStrictField(item, 'Name', currentLang) || "Cosmetic Product";
+                // جلب الوصف فقط إن كان متوفراً بنفس اللغة الحالية
                 let desc = getStrictField(item, 'Desc', currentLang);
                 
-                // قراءة رابط الصورة المرفوعة من الشيت
+                // قراءة رابط الصورة المرفوعة حقيقياً بدون فرض صور افتراضية
                 let image = "";
                 if (item.Image_URL && item.Image_URL.trim().startsWith('http')) {
                     image = item.Image_URL.trim();
@@ -525,17 +518,17 @@
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                         <div>
                             <div class="relative overflow-hidden bg-slate-50 h-56 flex items-center justify-center">
-                                ${image ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<div class="text-4xl text-slate-300">🧴</div>`}
+                                ${image ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<div class="text-5xl text-slate-300">🧴</div>`}
                                 ${isPackage ? `<span class="absolute top-3 right-3 bg-brandOrange text-white text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full shadow-lg uppercase">PACKAGE</span>` : ''}
                             </div>
                             <div class="p-5">
-                                <h3 class="text-lg font-bold text-navyDark mb-1 leading-snug">${name}</h3>
-                                ${desc ? `<p class="text-slate-500 text-sm line-clamp-2 leading-relaxed">${desc}</p>` : ''}
+                                <h3 class="text-lg font-bold text-navyDark leading-snug">${name}</h3>
+                                ${desc ? `<p class="text-slate-500 text-sm line-clamp-2 leading-relaxed mt-1">${desc}</p>` : ''}
                             </div>
                         </div>
 
                         <div class="p-5 pt-0 mt-auto">
-                            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
                                 <div>
                                     <span class="text-2xl font-extrabold text-navyDark">${price}</span>
                                     <span class="text-xs font-semibold text-slate-400">EGP</span>
