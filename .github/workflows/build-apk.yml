@@ -18,31 +18,23 @@ jobs:
         with:
           node-version: '20'
 
-      - name: ☕ إعداد بيئة Java 21 للأندرويد
+      - name: ☕ إعداد بيئة Java 17 المستقرة
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
 
-      - name: 🏗️ تحويل الموقع لتطبيق أندرويد أصلي (Capacitor)
+      - name: 🏗️ تحويل الموقع لتطبيق أندرويد (Capacitor v5)
         run: |
-          # 1. تجميع كل ملفات الموقع في مجلد واحد
           mkdir www
           rsync -av --exclude='www' --exclude='.git' --exclude='.github' ./ ./www/
           
-          # 2. تثبيت مكتبات Capacitor وتغليف التطبيق
           npm init -y
-          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
+          # استخدام الإصدار الخامس المستقر لمنع أي تعارض في البناء
+          npm install @capacitor/core@5 @capacitor/cli@5 @capacitor/android@5
           npx cap init "Anjum Green" "com.anjumgreen.pharmacy" --web-dir "www"
           
-          # 3. إضافة منصة أندرويد ودمج الملفات
           npx cap add android
-          npx cap copy android
-          
-          # 💡 الحل السحري: إجبار النظام على استخدام إصدار Kotlin موحد لمنع تعارض (Duplicate class)
-          echo "subprojects { project.configurations.all { resolutionStrategy.eachDependency { details -> if (details.requested.group == 'org.jetbrains.kotlin') { details.useVersion '1.9.22' } } } }" >> android/build.gradle
-          
-          # 4. بناء ملف الـ APK النهائي
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
