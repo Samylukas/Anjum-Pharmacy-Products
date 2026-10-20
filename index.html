@@ -64,19 +64,13 @@
 
     <!-- 1. SPLASH SCREEN ANIMATION -->
     <div id="splash-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
-        
         <div class="relative w-64 h-64 mb-2 flex items-center justify-center">
             <svg class="w-full h-full drop-shadow-[0_10px_15px_rgba(46,125,50,0.12)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Straight Symmetrical Stem -->
                 <path class="branch-path" d="M100 180 L100 30" stroke="#6d4c41" stroke-width="4" stroke-linecap="round"/>
-                
-                <!-- TOP POINTY LEAF -->
                 <g class="leaf-top">
                     <path d="M 100 30 C 92 15, 95 0, 100 -5 C 105 0, 108 15, 100 30 Z" fill="#2e7d32"/>
                     <line x1="100" y1="30" x2="100" y2="0" stroke="#1b5e20" stroke-width="0.8"/>
                 </g>
-
-                <!-- PAIR 1 (Upper Symmetrical Pointy Leaves) -->
                 <g class="leaf-left">
                     <path d="M 100 70 C 70 60, 50 45, 45 50 C 55 70, 80 75, 100 70 Z" fill="#388e3c"/>
                     <line x1="100" y1="70" x2="52" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
@@ -87,8 +81,6 @@
                     <line x1="100" y1="70" x2="148" y2="52" stroke="#1b5e20" stroke-width="0.8"/>
                     <ellipse cx="122" cy="62" rx="4" ry="6" transform="rotate(25 122 62)" fill="#33691e"/>
                 </g>
-
-                <!-- PAIR 2 (Lower Symmetrical Pointy Leaves) -->
                 <g class="leaf-left">
                     <path d="M 100 120 C 65 110, 40 95, 35 100 C 48 122, 75 128, 100 120 Z" fill="#2e7d32"/>
                     <line x1="100" y1="120" x2="42" y2="102" stroke="#1b5e20" stroke-width="0.8"/>
@@ -236,14 +228,14 @@
                             <input type="number" id="p-price" required placeholder="120" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة المنتج (URL):</label>
-                            <input type="url" id="p-img" required placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">صورة المنتج (رفع من الكمبيوتر):</label>
+                            <input type="file" id="p-file" accept="image/*" required class="w-full px-2 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer">
                         </div>
                     </div>
 
                     <div class="pt-2">
                         <button type="submit" id="btn-save-product" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2">
-                            ✨ حفظ وترجمة فورية لجميع اللغات 9
+                            ✨ رفع الصورة وترجمة فورية لجميع اللغات 9
                         </button>
                     </div>
                 </form>
@@ -259,8 +251,8 @@
                         <input type="number" id="pkg-price" required placeholder="450" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">رابط صورة الباقة (URL):</label>
-                        <input type="url" id="pkg-img" required placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">صورة الباقة (رفع من الكمبيوتر):</label>
+                        <input type="file" id="pkg-file" accept="image/*" required class="w-full px-2 py-1.5 rounded-xl border border-slate-300 text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer">
                     </div>
 
                     <div>
@@ -358,7 +350,6 @@
         const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
         
-        // YOUR EXECUTABLE GOOGLE APPS SCRIPT WEB APP URL
         const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
 
         const uiTranslations = {
@@ -582,6 +573,16 @@
             });
         }
 
+        // Convert File to Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
         // Auto Translation Helper
         async function translateText(text, targetLang) {
             try {
@@ -589,7 +590,7 @@
                 const data = await res.json();
                 return data[0][0][0];
             } catch (err) {
-                return text; // fallback
+                return text;
             }
         }
 
@@ -597,14 +598,19 @@
             e.preventDefault();
             const btn = document.getElementById('btn-save-product');
             btn.disabled = true;
-            btn.innerText = 'جاري الترجمة والحفظ... ⏳';
+            btn.innerText = 'جاري معالجة الصورة والترجمة... ⏳';
 
             const nameAr = document.getElementById('p-name-ar').value;
             const descAr = document.getElementById('p-desc-ar').value;
             const price = document.getElementById('p-price').value;
-            const img = document.getElementById('p-img').value;
+            const fileInput = document.getElementById('p-file');
 
-            const langCodes = ['en', 'pl', 'ru', 'cs', 'de', 'it', 'uk', 'de']; // Swiss maps to de
+            let imageBase64 = "";
+            if (fileInput.files.length > 0) {
+                imageBase64 = await fileToBase64(fileInput.files[0]);
+            }
+
+            const langCodes = ['en', 'pl', 'ru', 'cs', 'de', 'it', 'uk', 'de'];
 
             const translationsName = {};
             const translationsDesc = {};
@@ -617,7 +623,7 @@
             const payload = {
                 type: 'Products',
                 ID: Date.now().toString(),
-                Image_URL: img,
+                Image_URL: imageBase64,
                 Price: price,
                 Name_AR: nameAr, Name_EN: translationsName['EN'], Name_PL: translationsName['PL'], Name_RU: translationsName['RU'], Name_CS: translationsName['CS'], Name_DE: translationsName['DE'], Name_IT: translationsName['IT'], Name_UK: translationsName['UK'], Name_CH: translationsName['DE'],
                 Desc_AR: descAr, Desc_EN: translationsDesc['EN'], Desc_PL: translationsDesc['PL'], Desc_RU: translationsDesc['RU'], Desc_CS: translationsDesc['CS'], Desc_DE: translationsDesc['DE'], Desc_IT: translationsDesc['IT'], Desc_UK: translationsDesc['UK'], Desc_CH: translationsDesc['DE']
@@ -630,11 +636,16 @@
             e.preventDefault();
             const btn = document.getElementById('btn-save-package');
             btn.disabled = true;
-            btn.innerText = 'جاري النشر... ⏳';
+            btn.innerText = 'جاري النشر ومعالجة الصورة... ⏳';
 
             const nameAr = document.getElementById('pkg-name-ar').value;
             const price = document.getElementById('pkg-price').value;
-            const img = document.getElementById('pkg-img').value;
+            const fileInput = document.getElementById('pkg-file');
+
+            let imageBase64 = "";
+            if (fileInput.files.length > 0) {
+                imageBase64 = await fileToBase64(fileInput.files[0]);
+            }
 
             const selectedProducts = [];
             document.querySelectorAll('.pkg-product-choice:checked').forEach(cb => selectedProducts.push(cb.value));
@@ -646,7 +657,7 @@
             const payload = {
                 type: 'Packages',
                 ID: Date.now().toString(),
-                Image_URL: img,
+                Image_URL: imageBase64,
                 Price: price,
                 Name_AR: nameAr, Name_EN: nameEn, Name_PL: nameEn, Name_RU: nameEn, Name_CS: nameEn, Name_DE: nameEn, Name_IT: nameEn, Name_UK: nameEn, Name_CH: nameEn,
                 Desc_AR: descAr, Desc_EN: descEn, Desc_PL: descEn, Desc_RU: descEn, Desc_CS: descEn, Desc_DE: descEn, Desc_IT: descEn, Desc_UK: descEn, Desc_CH: descEn
