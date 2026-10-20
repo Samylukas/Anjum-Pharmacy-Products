@@ -1,8 +1,8 @@
 // ================= ================= =================
 // 1. ضع رابط الـ CSV الخاص بـ Products و Packages هنا
 // ================= ================= =================
-const PRODUCTS_SHEET_URL = "رابط_الـ_CSV_الخاص_بصفحة_Products_هنا";
-const PACKAGES_SHEET_URL = "رابط_الـ_CSV_الخاص_بصفحة_Packages_هنا";
+const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
+const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
 
 // ================= ================= =================
 // 2. قاموس الترجمات لواجهة المستخدم (UI Texts)
