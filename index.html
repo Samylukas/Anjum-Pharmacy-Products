@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjum Green Pharmacy</title>
-    <!-- خط جوجل العصري Plus Jakarta Sans -->
+    <title>Anjum Green Pharmacy - Premium Health & Wellness</title>
+    <!-- Google Fonts: Plus Jakarta Sans & Tajawal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- PapaParse لقراءة الجوجل شيت -->
+    <!-- PapaParse Library for CSV Fetching -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
     <script>
@@ -21,162 +21,563 @@
                         sans: ['Plus Jakarta Sans', 'Tajawal', 'sans-serif'],
                     },
                     colors: {
-                        emeraldBrand: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                            900: '#064e3b',
-                        }
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        brandOrange: {
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
+                        slateBg: '#f8fafc',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
-        .glass-panel {
+        body {
+            font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-card {
             background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
-        .bg-mesh {
-            background-color: #064e3b;
-            background-image: radial-gradient(at 0% 0%, hsla(160,84%,39%,1) 0px, transparent 50%),
-                              radial-gradient(at 100% 0%, hsla(168,76%,42%,1) 0px, transparent 50%),
-                              radial-gradient(at 50% 100%, hsla(158,64%,15%,1) 0px, transparent 50%);
+
+        .glass-modal {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
         }
+
+        /* Olive Leaves Splash Animations */
+        @keyframes leafFlyInTL {
+            0% { transform: translate(-150vw, -150vh) rotate(-180deg) scale(0.2); opacity: 0; }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes leafFlyInTR {
+            0% { transform: translate(150vw, -150vh) rotate(180deg) scale(0.2); opacity: 0; }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes leafFlyInBL {
+            0% { transform: translate(-150vw, 150vh) rotate(-270deg) scale(0.2); opacity: 0; }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes leafFlyInBR {
+            0% { transform: translate(150vw, 150vh) rotate(270deg) scale(0.2); opacity: 0; }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.4)); }
+            50% { filter: drop-shadow(0 0 35px rgba(16, 185, 129, 0.7)); }
+        }
+
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .anim-leaf-tl { animation: leafFlyInTL 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-leaf-tr { animation: leafFlyInTR 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-leaf-bl { animation: leafFlyInBL 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-leaf-br { animation: leafFlyInBR 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .anim-glow { animation: pulseGlow 3s infinite ease-in-out; }
+        .anim-text { animation: textReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards; opacity: 0; }
+        .anim-subtext { animation: textReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards; opacity: 0; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between selection:bg-brandOrange-500 selection:text-white">
 
-    <!-- سبلاش سكرين اختيار اللغة مودرن وجذاب جداً -->
-    <div id="language-modal" class="fixed inset-0 bg-mesh z-50 flex items-center justify-center p-4 transition-all duration-500">
-        <div class="glass-panel p-8 md:p-12 rounded-3xl max-w-2xl w-full shadow-2xl border border-white/30 text-center relative overflow-hidden">
+    <!-- ========================================== -->
+    <!-- 1. INTRO SPLASH SCREEN (OLIVE LEAF ANIMATION) -->
+    <!-- ========================================== -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-navy-950 flex flex-col items-center justify-center p-6 text-center overflow-hidden transition-opacity duration-1000">
+        
+        <!-- Animated SVG Olive Branch Centerpiece -->
+        <div class="relative w-48 h-48 md:w-64 md:h-64 mb-6 flex items-center justify-center">
             
-            <!-- اللوجو والعنوان -->
-            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-3xl shadow-inner">
+            <!-- SVG Olive Branch with Flying Leaves from 4 Corners -->
+            <svg class="w-full h-full text-emerald-400 anim-glow" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Center Stem -->
+                <path d="M40 160 C70 130, 110 90, 160 40" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+                
+                <!-- Leaf Top-Left -->
+                <g class="anim-leaf-tl">
+                    <path d="M110 90 C90 70, 70 75, 65 95 C85 100, 100 95, 110 90 Z" fill="#10b981"/>
+                    <path d="M140 60 C120 40, 100 45, 95 65 C115 70, 130 65, 140 60 Z" fill="#34d399"/>
+                </g>
+
+                <!-- Leaf Top-Right -->
+                <g class="anim-leaf-tr">
+                    <path d="M110 90 C125 70, 145 70, 150 90 C130 95, 120 85, 110 90 Z" fill="#059669"/>
+                    <path d="M160 40 C175 20, 190 25, 190 45 C175 50, 165 40, 160 40 Z" fill="#10b981"/>
+                </g>
+
+                <!-- Leaf Bottom-Left -->
+                <g class="anim-leaf-bl">
+                    <path d="M75 125 C55 105, 35 110, 30 130 C50 135, 65 130, 75 125 Z" fill="#34d399"/>
+                    <path d="M50 150 C30 135, 15 140, 10 155 C25 160, 40 155, 50 150 Z" fill="#059669"/>
+                </g>
+
+                <!-- Leaf Bottom-Right -->
+                <g class="anim-leaf-br">
+                    <path d="M75 125 C90 105, 110 105, 115 125 C95 130, 85 120, 75 125 Z" fill="#10b981"/>
+                    <circle cx="115" cy="85" r="4" fill="#fbbf24"/>
+                    <circle cx="80" cy="120" r="4" fill="#fbbf24"/>
+                    <circle cx="145" cy="55" r="4" fill="#fbbf24"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Animated Typography -->
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-3 anim-text">
+            Anjum Green Pharmacy
+        </h1>
+        <p class="text-amber-400 font-medium text-base md:text-xl max-w-lg anim-subtext" id="splash-welcome-msg">
+            نشكركم علي اختيار انجوم جرين فارماسي<br>
+            <span class="text-slate-300 text-sm md:text-base font-normal">Thank you for choosing Anjum Green Pharmacy</span>
+        </p>
+
+        <!-- Auto Continue Progress Bar -->
+        <div class="w-48 h-1 bg-navy-800 rounded-full mt-8 overflow-hidden anim-subtext">
+            <div id="splash-progress" class="h-full bg-brandOrange-500 w-0 transition-all duration-[3500ms] ease-out"></div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. LANGUAGE SELECTION MODAL -->
+    <!-- ========================================== -->
+    <div id="language-modal" class="fixed inset-0 z-40 glass-modal hidden flex items-center justify-center p-4 transition-all duration-500">
+        <div class="bg-navy-900 border border-slate-800 p-6 md:p-10 rounded-3xl max-w-3xl w-full shadow-2xl text-center relative overflow-hidden">
+            
+            <!-- Glow Accent -->
+            <div class="absolute -top-20 -left-20 w-40 h-40 bg-brandOrange-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl"></div>
+
+            <div class="w-14 h-14 bg-navy-800 text-brandOrange-500 border border-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
                 🌿
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Anjum Green Pharmacy</h1>
-            <p class="text-slate-500 text-sm md:text-base mb-8 font-medium">Select your preferred language / اختر لغة العرض</p>
-            
-            <!-- شبكة اللغات الأنيقة -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5">
-                <button onclick="setLanguage('EN')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
-                    <span class="text-xl">🇬🇧</span>
+
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2">Anjum Green Pharmacy</h2>
+            <p class="text-slate-400 text-sm md:text-base mb-8">Please select your preferred language / اختر لغة العرض</p>
+
+            <!-- 9 Languages Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+                <button onclick="selectLanguage('EN')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇬🇧</span>
                     <div>
-                        <div class="text-sm">English</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">English</div>
+                        <div class="text-sm font-bold">English</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">English</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('AR')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-right">
-                    <span class="text-xl">🇪🇬</span>
+                <button onclick="selectLanguage('AR')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-right group">
+                    <span class="text-2xl">🇪🇬</span>
                     <div>
-                        <div class="text-sm">العربية</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Arabic</div>
+                        <div class="text-sm font-bold">العربية</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Arabic</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('PL')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
-                    <span class="text-xl">🇵🇱</span>
+                <button onclick="selectLanguage('PL')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇵🇱</span>
                     <div>
-                        <div class="text-sm">Polski</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Polish</div>
+                        <div class="text-sm font-bold">Polski</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Polish</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('RU')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
-                    <span class="text-xl">🇷🇺</span>
+                <button onclick="selectLanguage('RU')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇷🇺</span>
                     <div>
-                        <div class="text-sm">Русский</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Russian</div>
+                        <div class="text-sm font-bold">Русский</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Russian</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('CS')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
-                    <span class="text-xl">🇨🇿</span>
+                <button onclick="selectLanguage('CS')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇨🇿</span>
                     <div>
-                        <div class="text-sm">Čeština</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Czech</div>
+                        <div class="text-sm font-bold">Čeština</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Czech</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('DE')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
-                    <span class="text-xl">🇩🇪</span>
+                <button onclick="selectLanguage('DE')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇩🇪</span>
                     <div>
-                        <div class="text-sm">Deutsch</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">German</div>
+                        <div class="text-sm font-bold">Deutsch</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">German</div>
                     </div>
                 </button>
 
-                <button onclick="setLanguage('IT')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left col-span-2 md:col-span-1">
-                    <span class="text-xl">🇮🇹</span>
+                <button onclick="selectLanguage('IT')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇮🇹</span>
                     <div>
-                        <div class="text-sm">Italiano</div>
-                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Italian</div>
+                        <div class="text-sm font-bold">Italiano</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Italian</div>
+                    </div>
+                </button>
+
+                <!-- NEW LANGUAGES: UKRAINIAN & SWISS GERMAN -->
+                <button onclick="selectLanguage('UK')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇺🇦</span>
+                    <div>
+                        <div class="text-sm font-bold">Українська</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Ukrainian</div>
+                    </div>
+                </button>
+
+                <button onclick="selectLanguage('CH')" class="flex items-center gap-3 p-3.5 rounded-xl bg-navy-800/80 hover:bg-brandOrange-500 border border-slate-700/60 hover:border-brandOrange-500 text-white transition-all duration-200 text-left group">
+                    <span class="text-2xl">🇨🇭</span>
+                    <div>
+                        <div class="text-sm font-bold">Schwiizertütsch</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-white/80">Swiss German</div>
                     </div>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- الشريط العلوي Modern Header -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm hidden" id="main-nav">
+
+    <!-- ========================================== -->
+    <!-- 3. HEADER & DASHBOARD -->
+    <!-- ========================================== -->
+    <header class="bg-navy-900 text-white sticky top-0 z-30 shadow-lg border-b border-navy-800" id="main-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-emerald-500/10 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                <div class="w-11 h-11 bg-brandOrange-500/10 text-brandOrange-500 border border-brandOrange-500/30 rounded-xl flex items-center justify-center font-bold text-2xl shadow-sm">
                     🌿
                 </div>
-                <span class="text-xl font-bold tracking-tight text-slate-900" id="brand-name">Anjum Pharmacy</span>
+                <div>
+                    <span class="text-xl md:text-2xl font-black tracking-tight text-white block leading-none">Anjum Green</span>
+                    <span class="text-xs font-semibold text-brandOrange-500 tracking-widest uppercase">Pharmacy</span>
+                </div>
             </div>
-            
-            <div class="flex items-center gap-3">
-                <button onclick="showLanguageSelector()" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition text-sm font-semibold flex items-center gap-2">
-                    🌐 <span id="current-lang-code" class="uppercase">EN</span>
-                </button>
-            </div>
+
+            <!-- Language Switcher Button -->
+            <button onclick="openLanguageModal()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-800 hover:bg-slate-800 border border-slate-700 text-slate-200 text-sm font-bold transition shadow-sm">
+                <span>🌐</span>
+                <span id="active-lang-label" class="uppercase">EN</span>
+            </button>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي للموقع -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow hidden" id="main-content">
+
+    <!-- ========================================== -->
+    <!-- 4. MAIN CONTENT AREA -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
         
-        <!-- قسم العروض Packages -->
-        <section class="mb-14">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-2xl">🎁</span>
-                <h2 id="packages-title" class="text-2xl font-extrabold text-slate-900 tracking-tight">Special Packages</h2>
+        <!-- DISCLAIMER BANNER (IMPORTANT NOTICES) -->
+        <div class="mb-10 p-5 md:p-6 bg-slate-900 border-l-4 border-brandOrange-500 rounded-2xl shadow-md text-white relative overflow-hidden">
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                <div class="flex items-start gap-3.5">
+                    <div class="p-2 bg-brandOrange-500/20 text-brandOrange-500 rounded-lg text-xl mt-0.5">
+                        ⚠️
+                    </div>
+                    <div class="space-y-1.5 text-xs md:text-sm text-slate-300">
+                        <p id="notice-not-all" class="font-bold text-amber-400">
+                            • تنويه: هذه المنتجات لا تمثل كل المنتجات المتاحة داخل الصيدلية.
+                        </p>
+                        <p id="notice-price-change" class="text-slate-300">
+                            • قد تتغير العروض أو المنتجات بدون إنذار سابق وفقاً لتاريخ انتهاء العروض.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- كروت العروض هنا -->
+        </div>
+
+        <!-- SPECIAL PACKAGES SECTION -->
+        <section class="mb-16">
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl font-bold">🎁</div>
+                    <h2 id="packages-title" class="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Special Packages
+                    </h2>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">Offers</span>
+            </div>
+
+            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Dynamic Package Cards Inject Here -->
             </div>
         </section>
 
-        <!-- قسم المنتجات Products -->
-        <section>
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-2xl">💊</span>
-                <h2 id="products-title" class="text-2xl font-extrabold text-slate-900 tracking-tight">Our Products</h2>
+        <!-- PRODUCTS SECTION -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-navy-900/10 text-navy-900 flex items-center justify-center text-xl font-bold">💊</div>
+                    <h2 id="products-title" class="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Our Products
+                    </h2>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-navy-800 bg-slate-200/60 px-3 py-1.5 rounded-full">Catalog</span>
             </div>
+
             <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- كروت المنتجات هنا -->
-                <div class="col-span-full py-16 text-center" id="loading-text">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent mb-3"></div>
-                    <p class="text-slate-400 font-medium">Loading products...</p>
+                <!-- Loading Skeleton -->
+                <div class="col-span-full py-20 text-center" id="loading-spinner">
+                    <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-brandOrange-500 border-t-transparent mb-4"></div>
+                    <p class="text-slate-500 font-semibold" id="loading-text">Loading items from Google Sheets...</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-100 py-6 text-center text-slate-400 text-sm mt-auto">
-        &copy; Anjum Green Pharmacy. All rights reserved.
+
+    <!-- ========================================== -->
+    <!-- 5. FOOTER -->
+    <!-- ========================================== -->
+    <footer class="bg-navy-950 text-slate-400 py-8 border-t border-navy-900 text-center text-xs md:text-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 font-bold text-white">
+                <span>🌿</span> Anjum Green Pharmacy
+            </div>
+            <div>
+                &copy; <span id="year"></span> Anjum Green Pharmacy. All rights reserved.
+            </div>
+        </div>
     </footer>
 
-    <script src="app.js"></script>
+
+    <!-- ========================================== -->
+    <!-- 6. JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        // Google Sheets Published CSV Links
+        const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
+        const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
+
+        // Translations Dictionary for 9 Languages
+        const uiTranslations = {
+            EN: {
+                title: "Our Products", packages: "Special Packages", buy: "Order Now", stock: "In Stock", outStock: "Out of Stock", loading: "Loading items...",
+                notice1: "Note: These products do not represent all items available in the pharmacy.",
+                notice2: "Offers and prices are subject to change without prior notice based on promotion validity.",
+                thankYou: "Thank you for choosing Anjum Green Pharmacy"
+            },
+            AR: {
+                title: "منتجاتنا", packages: "العروض والباكجات الخاصة", buy: "اطلب الآن", stock: "متوفر", outStock: "غير متوفر", loading: "جاري تحميل المنتجات...",
+                notice1: "تنويه: هذه المنتجات لا تمثل كل المنتجات المتاحة داخل الصيدلية.",
+                notice2: "قد تتغير العروض أو المنتجات بدون إنذار سابق وفقاً لتاريخ انتهاء العروض.",
+                thankYou: "نشكركم علي اختيار انجوم جرين فارماسي"
+            },
+            PL: {
+                title: "Nasze Produkty", packages: "Pakiety Specjalne", buy: "Zamów teraz", stock: "W magazynie", outStock: "Brak w magazynie", loading: "Ładowanie produktów...",
+                notice1: "Uwaga: Te produkty nie reprezentują wszystkich artykułów dostępnych w aptece.",
+                notice2: "Oferty i ceny mogą ulec zmianie bez powiadomienia w zależności od ważności promocji.",
+                thankYou: "Dziękujemy za wybór Anjum Green Pharmacy"
+            },
+            RU: {
+                title: "Наши Товары", packages: "Специальные Комплекты", buy: "Заказать сейчас", stock: "В наличии", outStock: "Нет в наличии", loading: "Загрузка товаров...",
+                notice1: "Примечание: Эти товары не представляют весь ассортимент аптеки.",
+                notice2: "Акции и цены могут быть изменены без предварительного уведомления.",
+                thankYou: "Благодарим за выбор Anjum Green Pharmacy"
+            },
+            CS: {
+                title: "Naše Produkty", packages: "Speciální Balíčky", buy: "Objednat nyní", stock: "Skladem", outStock: "Vyprodáno", loading: "Načítání produktů...",
+                notice1: "Poznámka: Tyto produkty nereprezentují všechny položky dostupné v lékárně.",
+                notice2: "Nabídky a ceny se mohou změnit bez předchozího upozornění.",
+                thankYou: "Děkujeme, že jste si vybrali Anjum Green Pharmacy"
+            },
+            DE: {
+                title: "Unsere Produkte", packages: "Sonderpakete", buy: "Jetzt bestellen", stock: "Auf Lager", outStock: "Nicht auf Lager", loading: "Produkte werden geladen...",
+                notice1: "Hinweis: Diese Produkte repräsentieren nicht alle in der Apotheke erhältlichen Artikel.",
+                notice2: "Angebote und Preise können sich ohne vorherige Ankündigung ändern.",
+                thankYou: "Vielen Dank, dass Sie sich für Anjum Green Pharmacy entschieden haben"
+            },
+            IT: {
+                title: "I Nostri Prodotti", packages: "Pacchetti Speciali", buy: "Ordina Ora", stock: "Disponibile", outStock: "Esaurito", loading: "Caricamento prodotti...",
+                notice1: "Nota: Questi prodotti non rappresentano tutti gli articoli disponibili in farmacia.",
+                notice2: "Le offerte e i prezzi sono soggetti a modifiche senza preavviso.",
+                thankYou: "Grazie per aver scelto Anjum Green Pharmacy"
+            },
+            UK: {
+                title: "Наші Товари", packages: "Спеціальні Набори", buy: "Замовити зараз", stock: "В наявності", outStock: "Немає в наявності", loading: "Завантаження...",
+                notice1: "Примітка: Ці товари не представляють весь асортимент аптеки.",
+                notice2: "Пропозиції та ціни можуть змінюватися без попередження.",
+                thankYou: "Дякуємо, що обрали Anjum Green Pharmacy"
+            },
+            CH: {
+                title: "Eusi Produkt", packages: "Spezielle Pakätli", buy: "Jetzt bstelle", stock: "Uf Lager", outStock: "Usverchauft", loading: "Lade Läbe...",
+                notice1: "Hiwiis: Die Produkt zeiget nöd alles wo mir i de Apitegg händ.",
+                notice2: "Agebote und Priise chönnd sich ohni Vorankündigung ändere.",
+                thankYou: "Danke vielmal dass Sie Anjum Green Pharmacy gwählt händ"
+            }
+        };
+
+        let currentLang = localStorage.getItem('anjum_pharmacy_lang') || null;
+
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // 1. Splash Screen Timing Sequence
+        window.addEventListener('DOMContentLoaded', () => {
+            const progress = document.getElementById('splash-progress');
+            if (progress) progress.style.width = '100%';
+
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.classList.add('opacity-0');
+                
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    
+                    if (currentLang) {
+                        applyLanguage(currentLang);
+                    } else {
+                        document.getElementById('language-modal').classList.remove('hidden');
+                    }
+                }, 1000);
+            }, 3500);
+        });
+
+        function openLanguageModal() {
+            document.getElementById('language-modal').classList.remove('hidden');
+        }
+
+        function selectLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('anjum_pharmacy_lang', lang);
+            document.getElementById('language-modal').classList.add('hidden');
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang) {
+            document.getElementById('active-lang-label').innerText = lang;
+
+            // Set Text Direction RTL or LTR
+            if (lang === 'AR') {
+                document.documentElement.dir = "rtl";
+                document.documentElement.lang = "ar";
+            } else {
+                document.documentElement.dir = "ltr";
+                document.documentElement.lang = lang.toLowerCase();
+            }
+
+            const texts = uiTranslations[lang] || uiTranslations.EN;
+            document.getElementById('products-title').innerText = texts.title;
+            document.getElementById('packages-title').innerText = texts.packages;
+            document.getElementById('notice-not-all').innerText = texts.notice1;
+            document.getElementById('notice-price-change').innerText = texts.notice2;
+
+            const loadText = document.getElementById('loading-text');
+            if (loadText) loadText.innerText = texts.loading;
+
+            fetchData();
+        }
+
+        // Fetch CSV from Google Sheets via PapaParse
+        function fetchData() {
+            if (PRODUCTS_SHEET_URL) {
+                Papa.parse(PRODUCTS_SHEET_URL, {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        renderItems(results.data, 'products-container', false);
+                    }
+                });
+            }
+
+            if (PACKAGES_SHEET_URL) {
+                Papa.parse(PACKAGES_SHEET_URL, {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        renderItems(results.data, 'packages-container', true);
+                    }
+                });
+            }
+        }
+
+        function renderItems(data, containerId, isPackage) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            const texts = uiTranslations[currentLang] || uiTranslations.EN;
+
+            if (!data || data.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400">No items currently listed.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                if (!item.ID && !item.Price && !item.Name_EN) return;
+
+                const name = item[`Name_${currentLang}`] || item.Name_EN || item.Name_AR || "Pharmacy Item";
+                const desc = item[`Desc_${currentLang}`] || item.Desc_EN || item.Desc_AR || "";
+                const image = item.Image_URL || "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80";
+                const price = item.Price || "0";
+                
+                const isAvailable = item.In_Stock ? 
+                    (item.In_Stock.toLowerCase() === 'true' || item.In_Stock === '1' || item.In_Stock.toLowerCase() === 'yes' || item.In_Stock === 'متوفر') 
+                    : true;
+
+                const borderAccent = isPackage ? 'border-amber-300 hover:border-amber-500' : 'border-slate-200/80 hover:border-brandOrange-500';
+
+                const cardHTML = `
+                    <div class="bg-white rounded-2xl border ${borderAccent} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                        <div>
+                            <div class="relative overflow-hidden bg-slate-100 h-52">
+                                <img src="${image}" alt="${name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                ${isPackage ? `<span class="absolute top-3 right-3 bg-amber-500 text-white text-[11px] font-extrabold tracking-widest px-3 py-1 rounded-full shadow-lg uppercase">SPECIAL PACKAGE</span>` : ''}
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-extrabold text-navy-900 mb-2 leading-snug group-hover:text-brandOrange-600 transition-colors">${name}</h3>
+                                <p class="text-slate-500 text-xs md:text-sm line-clamp-3 leading-relaxed">${desc}</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 pt-0 mt-auto">
+                            <div class="flex items-center justify-between mb-4 pt-3 border-t border-slate-100">
+                                <div>
+                                    <span class="text-2xl font-black text-navy-900">${price}</span>
+                                    <span class="text-xs font-extrabold text-brandOrange-500">EGP</span>
+                                </div>
+                                <span class="text-[11px] font-bold px-3 py-1 rounded-full ${isAvailable ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/60' : 'bg-rose-50 text-rose-700 border border-rose-200/60'}">
+                                    ${isAvailable ? texts.stock : texts.outStock}
+                                </span>
+                            </div>
+                            <button ${!isAvailable ? 'disabled' : ''} class="w-full bg-brandOrange-500 hover:bg-brandOrange-600 text-white font-bold py-3 rounded-xl transition duration-200 shadow-sm hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                                <span>🛒</span>
+                                <span>${texts.buy}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML += cardHTML;
+            });
+        }
+    </script>
 </body>
 </html>
+```
+
+كل الكود الآن في ملف واحد جاهز تماماً ليُستبدل في `index.html` في مستودع GitHub الخاص بك ليمنحك النتيجة المذهلة التي طلبتها!
