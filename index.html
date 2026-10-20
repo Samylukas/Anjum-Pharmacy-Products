@@ -4,73 +4,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anjum Green Pharmacy</title>
-    <!-- استدعاء Tailwind CSS لتصميم عصري وسريع -->
+    <!-- خط جوجل العصري Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- استدعاء مكتبة قراءة ملفات الـ CSV من الجوجل شيت -->
+    <!-- PapaParse لقراءة الجوجل شيت -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        emeraldBrand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* تأثيرات حركية ناعمة */
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .bg-mesh {
+            background-color: #064e3b;
+            background-image: radial-gradient(at 0% 0%, hsla(160,84%,39%,1) 0px, transparent 50%),
+                              radial-gradient(at 100% 0%, hsla(168,76%,42%,1) 0px, transparent 50%),
+                              radial-gradient(at 50% 100%, hsla(158,64%,15%,1) 0px, transparent 50%);
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <!-- شاشة اختيار اللغة (تظهر أولاً) -->
-    <div id="language-modal" class="fixed inset-0 bg-green-900 bg-opacity-95 z-50 flex items-center justify-center fade-in">
-        <div class="text-center w-full px-4">
-            <h1 class="text-white text-4xl md:text-5xl font-bold mb-4">🌿 Anjum Green Pharmacy</h1>
-            <p class="text-green-200 mb-8 text-lg">Please select your preferred language</p>
+    <!-- سبلاش سكرين اختيار اللغة مودرن وجذاب جداً -->
+    <div id="language-modal" class="fixed inset-0 bg-mesh z-50 flex items-center justify-center p-4 transition-all duration-500">
+        <div class="glass-panel p-8 md:p-12 rounded-3xl max-w-2xl w-full shadow-2xl border border-white/30 text-center relative overflow-hidden">
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-                <!-- أزرار اللغات -->
-                <button onclick="setLanguage('EN')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇬🇧 English</button>
-                <button onclick="setLanguage('AR')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇪🇬 العربية</button>
-                <button onclick="setLanguage('PL')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇵🇱 Polski</button>
-                <button onclick="setLanguage('RU')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇷🇺 Русский</button>
-                <button onclick="setLanguage('CS')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇨🇿 Čeština</button>
-                <button onclick="setLanguage('DE')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇩🇪 Deutsch</button>
-                <button onclick="setLanguage('IT')" class="bg-white text-green-800 py-3 rounded-xl font-bold hover:bg-green-500 hover:text-white transition shadow-lg">🇮🇹 Italiano</button>
+            <!-- اللوجو والعنوان -->
+            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-3xl shadow-inner">
+                🌿
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Anjum Green Pharmacy</h1>
+            <p class="text-slate-500 text-sm md:text-base mb-8 font-medium">Select your preferred language / اختر لغة العرض</p>
+            
+            <!-- شبكة اللغات الأنيقة -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5">
+                <button onclick="setLanguage('EN')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
+                    <span class="text-xl">🇬🇧</span>
+                    <div>
+                        <div class="text-sm">English</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">English</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('AR')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-right">
+                    <span class="text-xl">🇪🇬</span>
+                    <div>
+                        <div class="text-sm">العربية</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Arabic</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('PL')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
+                    <span class="text-xl">🇵🇱</span>
+                    <div>
+                        <div class="text-sm">Polski</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Polish</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('RU')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
+                    <span class="text-xl">🇷🇺</span>
+                    <div>
+                        <div class="text-sm">Русский</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Russian</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('CS')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
+                    <span class="text-xl">🇨🇿</span>
+                    <div>
+                        <div class="text-sm">Čeština</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Czech</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('DE')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left">
+                    <span class="text-xl">🇩🇪</span>
+                    <div>
+                        <div class="text-sm">Deutsch</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">German</div>
+                    </div>
+                </button>
+
+                <button onclick="setLanguage('IT')" class="flex items-center gap-3 p-3.5 rounded-xl bg-white/70 hover:bg-emerald-600 hover:text-white border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-slate-700 group text-left col-span-2 md:col-span-1">
+                    <span class="text-xl">🇮🇹</span>
+                    <div>
+                        <div class="text-sm">Italiano</div>
+                        <div class="text-[10px] text-slate-400 group-hover:text-emerald-100 uppercase">Italian</div>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- الشريط العلوي للموقع (Navbar) -->
-    <nav class="bg-white shadow-md p-4 sticky top-0 z-40 hidden" id="main-nav">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl font-extrabold text-green-600 flex items-center gap-2">
-                🌿 <span id="brand-name">Anjum Pharmacy</span>
+    <!-- الشريط العلوي Modern Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm hidden" id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-500/10 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                    🌿
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-900" id="brand-name">Anjum Pharmacy</span>
             </div>
-            <div class="flex gap-4 items-center">
-                <!-- أيقونة السلة -->
-                <button class="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold hover:bg-green-200 transition">
-                    🛒 <span id="cart-count">0</span>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="showLanguageSelector()" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition text-sm font-semibold flex items-center gap-2">
+                    🌐 <span id="current-lang-code" class="uppercase">EN</span>
                 </button>
-                <!-- زر تغيير اللغة -->
-                <button onclick="showLanguageSelector()" class="text-2xl hover:scale-110 transition">🌐</button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- مساحة عرض المنتجات والعروض -->
-    <main class="container mx-auto p-4 mt-8 hidden" id="main-content">
-        <!-- قسم العروض (Packages) -->
-        <h2 id="packages-title" class="text-3xl font-bold mb-6 border-l-4 border-green-500 pl-3">🎁 Special Packages</h2>
-        <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <!-- سيتم إضافة العروض هنا برمجياً -->
-        </div>
-
-        <!-- قسم المنتجات (Products) -->
-        <h2 id="products-title" class="text-3xl font-bold mb-6 border-l-4 border-green-500 pl-3">💊 Our Products</h2>
-        <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- سيتم إضافة المنتجات هنا برمجياً -->
-            <div class="col-span-full text-center py-10 text-gray-500 text-xl" id="loading-text">
-                Loading... جاري التحميل...
+    <!-- المحتوى الرئيسي للموقع -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow hidden" id="main-content">
+        
+        <!-- قسم العروض Packages -->
+        <section class="mb-14">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-2xl">🎁</span>
+                <h2 id="packages-title" class="text-2xl font-extrabold text-slate-900 tracking-tight">Special Packages</h2>
             </div>
-        </div>
+            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- كروت العروض هنا -->
+            </div>
+        </section>
+
+        <!-- قسم المنتجات Products -->
+        <section>
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-2xl">💊</span>
+                <h2 id="products-title" class="text-2xl font-extrabold text-slate-900 tracking-tight">Our Products</h2>
+            </div>
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- كروت المنتجات هنا -->
+                <div class="col-span-full py-16 text-center" id="loading-text">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent mb-3"></div>
+                    <p class="text-slate-400 font-medium">Loading products...</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- ملف الجافاسكريبت الذي سيقوم بتشغيل الموقع -->
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-100 py-6 text-center text-slate-400 text-sm mt-auto">
+        &copy; Anjum Green Pharmacy. All rights reserved.
+    </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
