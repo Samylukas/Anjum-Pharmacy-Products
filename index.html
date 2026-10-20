@@ -352,52 +352,49 @@
         const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
         const IMGBB_API_KEY = "0711925b4ec2b0286811449552b7b4d1";
 
-        // صورة تجميلية راقية افتراضية لمنتجات العناية للبشرة
-        const COSMETIC_DEFAULT_IMAGE = "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80";
-
         const uiTranslations = {
             EN: { 
-                title: "Our Cosmetic Products", packages: "Special Cosmetic Packages", buy: "Add to Order", stock: "In Stock", outStock: "Out of Stock", loading: "Loading...",
+                title: "Our Cosmetic Products", packages: "Special Cosmetic Packages", stock: "In Stock", outStock: "Out of Stock", loading: "Loading...",
                 disc1: "Notice: These products do not represent all items available in the pharmacy.",
                 disc2: "Offers and products are subject to change without prior notice based on expiration dates."
             },
             AR: { 
-                title: "منتجاتنا التجميلية", packages: "العروض الخاصة", buy: "أضف للطلب", stock: "متوفر", outStock: "غير متوفر", loading: "جاري التحميل...",
+                title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", outStock: "غير متوفر", loading: "جاري التحميل...",
                 disc1: "تنويه: هذه المنتجات لا تمثل كل المنتجات المتاحة داخل الصيدلية.",
                 disc2: "قد تتغير العروض أو المنتجات بدون إنذار سابق حسب تاريخ انتهاء العروض."
             },
             PL: { 
-                title: "Kosmetyki", packages: "Pakiety Specjalne", buy: "Dodaj do zamówienia", stock: "W magazynie", outStock: "Brak w magazynie", loading: "Ładowanie...",
+                title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", outStock: "Brak w magazynie", loading: "Ładowanie...",
                 disc1: "Uwaga: Te produkty nie reprezentują wszystkich artykułów dostępnych w aptece.",
                 disc2: "Oferty i produkty mogą ulec zmianie bez powiadomienia w zależności od daty ważności."
             },
             RU: { 
-                title: "Косметические Товары", packages: "Специальные Наборы", buy: "В заказ", stock: "В наличии", outStock: "Нет в наличии", loading: "Загрузка...",
+                title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", outStock: "Нет в наличии", loading: "Загрузка...",
                 disc1: "Примечание: Эти товары не представляют весь ассортимент аптеки.",
                 disc2: "Предложения и товары могут быть изменены без предварительного уведомления."
             },
             CS: { 
-                title: "Kosmetika", packages: "Speciální Balíčky", buy: "Přidat do objednávky", stock: "Skladem", outStock: "Vyprodáno", loading: "Načítání...",
+                title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", outStock: "Vyprodáno", loading: "Načítání...",
                 disc1: "Poznámka: Tyto produkty nereprezentují všechny položky dostupné v lékárně.",
                 disc2: "Nabídky a ceny se mohou změnit bez předchozího upozornění."
             },
             DE: { 
-                title: "Kosmetikprodukte", packages: "Sonderpakete", buy: "Zur Bestellung", stock: "Auf Lager", outStock: "Nicht auf Lager", loading: "Laden...",
+                title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", outStock: "Nicht auf Lager", loading: "Laden...",
                 disc1: "Hinweis: Diese Produkte repräsentieren nicht alle in der Apotheke erhältlichen Artikel.",
                 disc2: "Angebote und Produkte können sich je nach Ablaufdatum ohne vorherige Ankündigung ändern."
             },
             IT: { 
-                title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", buy: "Aggiungi all'ordine", stock: "Disponibile", outStock: "Esaurito", loading: "Caricamento...",
+                title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", outStock: "Esaurito", loading: "Caricamento...",
                 disc1: "Avviso: Questi prodotti non rappresentano tutti gli articoli disponibili in farmacia.",
                 disc2: "Le offerte e i prodotti sono soggetti a modifiche senza preavviso."
             },
             UK: { 
-                title: "Косметичні Товари", packages: "Спеціальні Набори", buy: "До замовлення", stock: "В наявності", outStock: "Немає в наявності", loading: "Завантаження...",
+                title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", outStock: "Немає в наявності", loading: "Завантаження...",
                 disc1: "Примітка: Ці товари не представляють увесь асортимент аптеки.",
                 disc2: "Пропозиції та товари можуть змінюватися без попередження."
             },
             CH: { 
-                title: "Kosmetik Produkt", packages: "Spezial-Paket", buy: "Zur Bschtellung", stock: "Uf Lager", outStock: "Ufverchauft", loading: "Am Lade...",
+                title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", outStock: "Ufverchauft", loading: "Am Lade...",
                 disc1: "Hiwis: Die Produkt zeiged nöd alles wo mir idä Apitigg händ.",
                 disc2: "Agebott chönnd sich ohni Vorankündigung ändere."
             }
@@ -468,16 +465,13 @@
             }
         }
 
-        // دالة حاسمة ومشددة لجلب النص الصحيح للغة دون التداخل مع لغات أخرى
         function getStrictField(item, fieldType, lang) {
             const key = `${fieldType}_${lang}`;
             
-            // 1. البحث بالقيمة المباشرة من الكائن إذا توفرت
             if (item[key] && typeof item[key] === 'string' && item[key].trim() !== '') {
                 return item[key].trim();
             }
 
-            // 2. البحث الدقيق داخل مفاتيح الكائن بمرونة حالة الأحرف
             for (let prop in item) {
                 if (prop.trim().toLowerCase() === key.toLowerCase()) {
                     if (item[prop] && item[prop].trim() !== '') {
@@ -486,7 +480,6 @@
                 }
             }
 
-            // Fallback آمن وحصري بالترتيب: إنجليزي ثم عربي فقط
             if (lang !== 'EN' && item[`${fieldType}_EN`] && item[`${fieldType}_EN`].trim() !== '') {
                 return item[`${fieldType}_EN`].trim();
             }
@@ -505,24 +498,21 @@
             let validCount = 0;
 
             data.forEach(item => {
-                // تجنب الصفوف الفارغة بالكامل
                 if (!item.ID && !item.Price && !item.Name_EN && !item.Name_AR) return;
 
                 validCount++;
                 
-                // جلب الاسم والوصف حصرياً باللغة المحددة دون تداخل
                 let name = getStrictField(item, 'Name', currentLang) || "Cosmetic Product";
                 let desc = getStrictField(item, 'Desc', currentLang);
                 
-                // معالجة رابط الصورة والتأكد من عدم وجود صور الأدوية القديمة
-                let image = COSMETIC_DEFAULT_IMAGE;
-                if (item.Image_URL && item.Image_URL.trim().startsWith('http') && !item.Image_URL.includes('photo-1584308666744')) {
+                // قراءة رابط الصورة المرفوعة من الشيت
+                let image = "";
+                if (item.Image_URL && item.Image_URL.trim().startsWith('http')) {
                     image = item.Image_URL.trim();
                 }
 
                 const price = item.Price || "0";
                 
-                // المنتج متوفر دائماً بشكل افتراضي ما لم يتم تحديد العكس صراحة
                 let isAvailable = true;
                 if (item.In_Stock) {
                     const stockVal = item.In_Stock.toString().trim().toLowerCase();
@@ -534,8 +524,8 @@
                 const cardHTML = `
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                         <div>
-                            <div class="relative overflow-hidden bg-slate-50 h-52">
-                                <img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="relative overflow-hidden bg-slate-50 h-56 flex items-center justify-center">
+                                ${image ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<div class="text-4xl text-slate-300">🧴</div>`}
                                 ${isPackage ? `<span class="absolute top-3 right-3 bg-brandOrange text-white text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full shadow-lg uppercase">PACKAGE</span>` : ''}
                             </div>
                             <div class="p-5">
@@ -545,7 +535,7 @@
                         </div>
 
                         <div class="p-5 pt-0 mt-auto">
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
                                 <div>
                                     <span class="text-2xl font-extrabold text-navyDark">${price}</span>
                                     <span class="text-xs font-semibold text-slate-400">EGP</span>
@@ -554,9 +544,6 @@
                                     ${isAvailable ? texts.stock : texts.outStock}
                                 </span>
                             </div>
-                            <button ${!isAvailable ? 'disabled' : ''} class="w-full bg-navyDark hover:bg-brandOrange text-white font-semibold py-3 rounded-xl transition duration-200 shadow-sm hover:shadow-md disabled:opacity-40 disabled:hover:bg-navyDark disabled:cursor-not-allowed">
-                                ${texts.buy}
-                            </button>
                         </div>
                     </div>
                 `;
@@ -629,7 +616,7 @@
                 return data.data.url;
             } catch (err) {
                 console.error("Image upload failed:", err);
-                return COSMETIC_DEFAULT_IMAGE;
+                return "";
             }
         }
 
@@ -656,7 +643,7 @@
             const price = document.getElementById('p-price').value;
             const fileInput = document.getElementById('p-file');
 
-            let imageUrl = COSMETIC_DEFAULT_IMAGE;
+            let imageUrl = "";
             if (fileInput.files.length > 0) {
                 imageUrl = await uploadImageToImgBB(fileInput.files[0]);
             }
@@ -692,7 +679,7 @@
             const price = document.getElementById('pkg-price').value;
             const fileInput = document.getElementById('pkg-file');
 
-            let imageUrl = COSMETIC_DEFAULT_IMAGE;
+            let imageUrl = "";
             if (fileInput.files.length > 0) {
                 imageUrl = await uploadImageToImgBB(fileInput.files[0]);
             }
