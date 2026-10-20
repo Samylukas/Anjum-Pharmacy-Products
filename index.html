@@ -188,7 +188,7 @@
         </div>
     </div>
 
-    <!-- 3. ADMIN CONTROL MODAL (Hidden Password Admin Panel) -->
+    <!-- 3. ADMIN CONTROL MODAL -->
     <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
@@ -216,11 +216,11 @@
                 <form id="add-product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">اسم المنتج (باللغة العربية فقط):</label>
-                        <input type="text" id="p-name-ar" required placeholder="مثال: بندول اكسترا 500 مجم" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
+                        <input type="text" id="p-name-ar" required placeholder="مثال: حليب الإبل / Camel Milk" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">وصف المنتج (باللغة العربية فقط):</label>
-                        <textarea id="p-desc-ar" rows="2" placeholder="مسكن سريع للآلام وصداع الرأس..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
+                        <textarea id="p-desc-ar" rows="2" placeholder="حليب طبيعي مفيد ومغذٍ..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -258,7 +258,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-2">اختر المنتجات المدرجة في العرض:</label>
                         <div id="admin-products-checkboxes" class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-3 space-y-2 bg-slate-50 text-xs">
-                            <!-- Checkboxes injected dynamically -->
+                            <!-- Checkboxes -->
                         </div>
                     </div>
 
@@ -280,7 +280,6 @@
                     🌿
                 </div>
                 <div>
-                    <!-- Hidden Admin Trigger Button on "Anjum Green" -->
                     <button onclick="openAdminModal()" class="text-left focus:outline-none group">
                         <span class="text-xl font-extrabold tracking-tight text-navyDark group-hover:text-brandOrange transition block">Anjum Green</span>
                     </button>
@@ -318,7 +317,7 @@
                 <span class="text-xs font-bold uppercase tracking-widest bg-orange-100 text-orange-800 px-3 py-1 rounded-full border border-orange-200">Offers</span>
             </div>
             <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Packages injected via JS -->
+                <!-- Packages -->
             </div>
         </section>
 
@@ -351,6 +350,7 @@
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
         
         const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
+        const IMGBB_API_KEY = "0711925b4ec2b0286811449552b7b4d1"; // Free ImgBB Upload API Key
 
         const uiTranslations = {
             EN: { 
@@ -401,7 +401,6 @@
         };
 
         let currentLang = null;
-        let loadedProductsList = [];
 
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
@@ -449,7 +448,6 @@
                     download: true,
                     header: true,
                     complete: function(results) {
-                        loadedProductsList = results.data;
                         renderItems(results.data, 'products-container', false);
                         populateAdminCheckboxes(results.data);
                     }
@@ -475,14 +473,20 @@
             let validCount = 0;
 
             data.forEach(item => {
-                if (!item.ID && !item.Price && !item.Name_EN) return;
+                if (!item.ID && !item.Price && !item.Name_EN && !item.Name_AR) return;
 
                 validCount++;
-                const name = item[`Name_${currentLang}`] || item.Name_EN || item.Name_AR || "Product";
-                const desc = item[`Desc_${currentLang}`] || item.Desc_EN || item.Desc_AR || "";
-                const image = item.Image_URL || "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
+                
+                // القراءة الدقيقة جداً للعمود المطابق للغة
+                let name = item[`Name_${currentLang}`] || item.Name_EN || item.Name_AR || "Product";
+                let desc = item[`Desc_${currentLang}`] || item.Desc_EN || item.Desc_AR || "";
+                
+                const image = (item.Image_URL && item.Image_URL.startsWith('http')) ? item.Image_URL : "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
                 const price = item.Price || "0";
-                const isAvailable = item.In_Stock ? (item.In_Stock.toLowerCase() === 'true' || item.In_Stock === '1' || item.In_Stock.toLowerCase() === 'yes') : true;
+                
+                // جعل المنتج متوفر دائماً افتراضياً إذا لم يتم تحديد خيار
+                const rawStock = item.In_Stock ? item.In_Stock.toString().trim().toLowerCase() : 'true';
+                const isAvailable = (rawStock === 'true' || rawStock === '1' || rawStock === 'yes' || rawStock === '');
 
                 const cardHTML = `
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
@@ -492,7 +496,7 @@
                                 ${isPackage ? `<span class="absolute top-3 right-3 bg-brandOrange text-white text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full shadow-lg uppercase">PACKAGE</span>` : ''}
                             </div>
                             <div class="p-5">
-                                <h3 class="text-lg font-bold text-navyDark mb-2 leading-snug">${name}</h3>
+                                <h3 class="text-lg font-bold text-navyDark mb-1 leading-snug">${name}</h3>
                                 <p class="text-slate-500 text-sm line-clamp-2 leading-relaxed">${desc}</p>
                             </div>
                         </div>
@@ -523,13 +527,8 @@
         }
 
         // --- ADMIN PANEL LOGIC ---
-        function openAdminModal() {
-            document.getElementById('admin-modal').classList.remove('hidden');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
+        function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
 
         function verifyAdminPass() {
             const input = document.getElementById('admin-pass-input').value;
@@ -573,18 +572,27 @@
             });
         }
 
-        // Convert File to Base64
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
+        // Upload file directly to ImgBB Server and get direct Image URL
+        async function uploadImageToImgBB(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                return data.data.url;
+            } catch (err) {
+                console.error("Image upload failed:", err);
+                return "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
+            }
         }
 
-        // Auto Translation Helper
+        // Translation Engine
         async function translateText(text, targetLang) {
+            if (!text) return "";
             try {
                 const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
                 const data = await res.json();
@@ -598,20 +606,19 @@
             e.preventDefault();
             const btn = document.getElementById('btn-save-product');
             btn.disabled = true;
-            btn.innerText = 'جاري معالجة الصورة والترجمة... ⏳';
+            btn.innerText = 'جاري رفع الصورة والترجمة... ⏳';
 
             const nameAr = document.getElementById('p-name-ar').value;
             const descAr = document.getElementById('p-desc-ar').value;
             const price = document.getElementById('p-price').value;
             const fileInput = document.getElementById('p-file');
 
-            let imageBase64 = "";
+            let imageUrl = "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
             if (fileInput.files.length > 0) {
-                imageBase64 = await fileToBase64(fileInput.files[0]);
+                imageUrl = await uploadImageToImgBB(fileInput.files[0]);
             }
 
             const langCodes = ['en', 'pl', 'ru', 'cs', 'de', 'it', 'uk', 'de'];
-
             const translationsName = {};
             const translationsDesc = {};
 
@@ -623,7 +630,7 @@
             const payload = {
                 type: 'Products',
                 ID: Date.now().toString(),
-                Image_URL: imageBase64,
+                Image_URL: imageUrl,
                 Price: price,
                 Name_AR: nameAr, Name_EN: translationsName['EN'], Name_PL: translationsName['PL'], Name_RU: translationsName['RU'], Name_CS: translationsName['CS'], Name_DE: translationsName['DE'], Name_IT: translationsName['IT'], Name_UK: translationsName['UK'], Name_CH: translationsName['DE'],
                 Desc_AR: descAr, Desc_EN: translationsDesc['EN'], Desc_PL: translationsDesc['PL'], Desc_RU: translationsDesc['RU'], Desc_CS: translationsDesc['CS'], Desc_DE: translationsDesc['DE'], Desc_IT: translationsDesc['IT'], Desc_UK: translationsDesc['UK'], Desc_CH: translationsDesc['DE']
@@ -636,15 +643,15 @@
             e.preventDefault();
             const btn = document.getElementById('btn-save-package');
             btn.disabled = true;
-            btn.innerText = 'جاري النشر ومعالجة الصورة... ⏳';
+            btn.innerText = 'جاري النشر... ⏳';
 
             const nameAr = document.getElementById('pkg-name-ar').value;
             const price = document.getElementById('pkg-price').value;
             const fileInput = document.getElementById('pkg-file');
 
-            let imageBase64 = "";
+            let imageUrl = "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80";
             if (fileInput.files.length > 0) {
-                imageBase64 = await fileToBase64(fileInput.files[0]);
+                imageUrl = await uploadImageToImgBB(fileInput.files[0]);
             }
 
             const selectedProducts = [];
@@ -657,7 +664,7 @@
             const payload = {
                 type: 'Packages',
                 ID: Date.now().toString(),
-                Image_URL: imageBase64,
+                Image_URL: imageUrl,
                 Price: price,
                 Name_AR: nameAr, Name_EN: nameEn, Name_PL: nameEn, Name_RU: nameEn, Name_CS: nameEn, Name_DE: nameEn, Name_IT: nameEn, Name_UK: nameEn, Name_CH: nameEn,
                 Desc_AR: descAr, Desc_EN: descEn, Desc_PL: descEn, Desc_RU: descEn, Desc_CS: descEn, Desc_DE: descEn, Desc_IT: descEn, Desc_UK: descEn, Desc_CH: descEn
@@ -673,7 +680,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             }).then(() => {
-                alert('تمت الإضافة بنجاح! قد تستغرق بضع ثوانٍ للظهور.');
+                alert('تمت الإضافة بنجاح وتحديث الشيت والموقع!');
                 location.reload();
             }).catch(err => {
                 alert('حدث خطأ أثناء الإرسال.');
