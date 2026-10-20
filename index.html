@@ -280,10 +280,11 @@
         }
 
         function getDriveDirectUrl(url) {
-            if (!url) return "";
-            let match = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/) || url.match(/\/d\/([a-zA-Z0-9-_]+)/);
-            return match ? `https://lh3.googleusercontent.com/d/${match[1]}` : url;
-        }
+    if (!url) return "";
+    let match = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/) || url.match(/\/d\/([a-zA-Z0-9-_]+)/) || url.match(/id=([a-zA-Z0-9-_]+)/);
+    // المسار السحري الجديد الذي يتخطى حظر جوجل درايف داخل تطبيقات الأندرويد
+    return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000` : url;
+}
 
         function openLightbox(imgUrl) {
             if (!imgUrl || imgUrl === 'undefined') return;
