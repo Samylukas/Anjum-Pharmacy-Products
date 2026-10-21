@@ -178,9 +178,9 @@
                     <img src="logo.png" alt="Anjum Logo" class="w-full h-full object-contain rounded-xl">
                 </div>
                 <div>
-                    <button onclick="openAdminModal()" class="text-left focus:outline-none group">
-                        <span class="text-3xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight"><span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span></span>
-                    </button>
+                    <button onclick="handleAdminClick()" class="text-left focus:outline-none group">
+    <span class="text-3xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight"><span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span></span>
+</button>
                     <span class="text-sm text-brandOrange font-extrabold tracking-widest uppercase block mt-1">Pharmacy</span>
                 </div>
             </div>
@@ -233,7 +233,24 @@
         let currentLang = 'EN';
         let globalProducts = [];
         let globalPackages = [];
+let adminClickCount = 0;
+let adminClickTimer = null;
 
+function handleAdminClick() {
+    adminClickCount++; // تزويد العداد مع كل دوسة
+    
+    // لو العداد وصل لـ 3 دوسات
+    if (adminClickCount >= 3) {
+        openAdminModal(); // افتح لوحة التحكم
+        adminClickCount = 0; // صفر العداد تاني
+    }
+    
+    // إعادة تعيين العداد للصفر لو المستخدم اتأخر أكتر من ثانية بين الدوسات (اختياري بس بيخليها احترافية)
+    clearTimeout(adminClickTimer);
+    adminClickTimer = setTimeout(() => {
+        adminClickCount = 0;
+    }, 1000); 
+}
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.getElementById('splash-logo-container').classList.add('smoke-exit-active');
