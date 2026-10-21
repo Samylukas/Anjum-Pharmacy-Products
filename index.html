@@ -208,8 +208,9 @@
     </main>
 
     <footer class="bg-white text-slate-500 py-6 text-center text-sm border-t border-slate-200 mt-auto font-medium">
-        &copy; Anjum Green Pharmacy. All rights reserved.
-    </footer>
+    &copy; Anjum Green Pharmacy. All rights reserved.
+    <span id="price-disclaimer" class="block text-xs text-slate-400 mt-2"></span>
+</footer>
 
     <script>
         // ⚠️⚠️⚠️ انتبه: ضع الرابط الجدييييد الذي استخرجته (New Deployment) في السطر القادم ⚠️⚠️⚠️
@@ -218,18 +219,17 @@
         const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
         const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
 
-        const uiTranslations = {
-            EN: { title: "Our Cosmetic Products", packages: "Special Packages", stock: "In Stock", enlarge: "Zoom" },
-            AR: { title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", enlarge: "تكبير" },
-            PL: { title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", enlarge: "Powiększ" },
-            RU: { title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", enlarge: "Увеличить" },
-            CS: { title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", enlarge: "Zvětšit" },
-            DE: { title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", enlarge: "Vergrößern" },
-            IT: { title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", enlarge: "Ingrandisci" },
-            UK: { title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", enlarge: "Збільшити" },
-            CH: { title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", enlarge: "Vergrössere" }
-        };
-
+       const uiTranslations = {
+    EN: { title: "Our Cosmetic Products", packages: "Special Packages", stock: "In Stock", enlarge: "Zoom", disclaimer: "Prices may vary and are subject to change." },
+    AR: { title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", enlarge: "تكبير", disclaimer: "الأسعار قابلة للتغيير وقد تختلف حسب التحديثات." },
+    PL: { title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", enlarge: "Powiększ", disclaimer: "Ceny mogą ulec zmianie." },
+    RU: { title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", enlarge: "Увеличить", disclaimer: "Цены могут быть изменены." },
+    CS: { title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", enlarge: "Zvětšit", disclaimer: "Ceny podléhají změnám." },
+    DE: { title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", enlarge: "Vergrößern", disclaimer: "Preisänderungen vorbehalten." },
+    IT: { title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", enlarge: "Ingrandisci", disclaimer: "I prezzi sono soggetti a modifiche." },
+    UK: { title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", enlarge: "Збільшити", disclaimer: "Ціни можуть бути змінені." },
+    CH: { title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", enlarge: "Vergrössere", disclaimer: "Priisänderige vorbhalte." }
+};
         let currentLang = 'EN';
         let globalProducts = [];
         let globalPackages = [];
@@ -277,7 +277,7 @@ function handleAdminClick() {
             const texts = uiTranslations[lang] || uiTranslations.EN;
             document.getElementById('products-title').innerText = texts.title;
             document.getElementById('packages-title').innerText = texts.packages;
-
+document.getElementById('price-disclaimer').innerText = texts.disclaimer;
             fetchData();
         }
 
