@@ -79,4 +79,475 @@
             <span class="word-cloud-item text-2xl font-medium text-slate-600 delay-5">Benvenuto</span>
             <span class="word-cloud-item text-3xl font-bold text-sky-600 delay-4">Добро пожаловать</span>
             <span class="word-cloud-item text-2xl font-semibold text-rose-500 delay-2">Witamy</span>
-            <span class="word-cloud-item text-4xl font-bold text
+            <span class="word-cloud-item text-4xl font-bold text-purple-600 delay-1">Vítejte</span>
+            <span class="word-cloud-item text-xl font-medium text-amber-500 delay-3">Ласкаво просимо</span>
+        </div>
+    </div>
+
+    <!-- LANGUAGE MODAL -->
+    <div id="language-modal" class="fixed inset-0 z-40 bg-white/95 glass-modal hidden flex items-center justify-center p-4 overflow-y-auto transition-all duration-500">
+        <div class="bg-white border border-slate-200 p-5 sm:p-8 md:p-10 rounded-[2.5rem] max-w-2xl w-full shadow-2xl text-center relative my-8">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden mx-auto mb-4 border border-slate-100 shadow-md p-1 bg-white">
+                <img src="logo.png" alt="Logo" class="w-full h-full object-contain rounded-2xl" onerror="this.onerror=null; this.src='logo.jpeg';">
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold mb-6 md:mb-8">
+                <span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span> <span class="text-brandOrange">Pharmacy</span>
+            </h2>
+            
+            <!-- Grid اللغات المتجاوب -->
+            <div class="grid grid-cols-2 gap-3 max-w-xl mx-auto">
+                <button onclick="setLanguage('EN')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇬🇧</span><span class="truncate">English</span></button>
+                <button onclick="setLanguage('AR')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇪🇬</span><span class="truncate">العربية</span></button>
+                <button onclick="setLanguage('PL')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇵🇱</span><span class="truncate">Polski</span></button>
+                <button onclick="setLanguage('RU')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇷🇺</span><span class="truncate">Русский</span></button>
+                <button onclick="setLanguage('CS')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇨🇿</span><span class="truncate">Čeština</span></button>
+                <button onclick="setLanguage('DE')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇩🇪</span><span class="truncate">Deutsch</span></button>
+                <button onclick="setLanguage('IT')" class="flex items-center gap-2 p-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base"><span class="text-xl shrink-0">🇮🇹</span><span class="truncate">Italiano</span></button>
+                
+                <button onclick="setLanguage('UK')" class="flex items-center justify-center gap-1 sm:gap-2 px-1 py-3.5 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-[11px] sm:text-base overflow-hidden tracking-tighter"><span class="text-lg sm:text-xl shrink-0">🇺🇦</span><span class="truncate">Українська</span></button>
+                
+                <button onclick="setLanguage('CH')" class="col-span-2 flex items-center justify-center gap-3 py-3.5 px-4 rounded-2xl bg-white hover:bg-brandOrange text-slate-800 hover:text-white border border-slate-200/80 hover:border-transparent transition duration-300 font-semibold shadow-sm text-sm sm:text-base w-full"><span class="text-xl shrink-0">🇨🇭</span><span>Schwiizertütsch</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD MODAL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-5xl w-full shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 text-2xl font-bold bg-slate-100 w-10 h-10 rounded-full flex items-center justify-center transition">✕</button>
+
+            <!-- Auth -->
+            <div id="admin-auth" class="text-center py-10">
+                <div class="w-16 h-16 bg-orange-100 text-brandOrange rounded-3xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm">🔒</div>
+                <h3 class="text-2xl font-extrabold text-navyDark mb-2">لوحة الإدارة المتقدمة</h3>
+                <p class="text-slate-500 text-sm mb-8">يرجى إدخال كلمة المرور المخصصة</p>
+                <input type="password" id="admin-pass-input" placeholder="كلمة المرور..." class="w-full max-w-xs px-5 py-4 rounded-xl border-2 border-slate-200 mb-4 text-center text-lg focus:outline-none focus:border-brandOrange">
+                <div><button onclick="verifyAdminPass()" class="bg-navyDark hover:bg-brandOrange text-white font-bold px-10 py-3.5 rounded-xl transition shadow-md">تسجيل الدخول</button></div>
+            </div>
+
+            <!-- Admin Interface -->
+            <div id="admin-panel" class="hidden">
+                <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-4 mb-6 sticky top-0 bg-white z-10 pt-2">
+                    <button id="tab-btn-dash" onclick="switchAdminTab('dash')" class="py-2 px-5 bg-navyDark text-white rounded-lg font-bold shadow-sm transition">المنتجات الحالية 📊</button>
+                    <button id="tab-btn-addp" onclick="switchAdminTab('addp')" class="py-2 px-5 bg-slate-100 text-slate-600 rounded-lg font-bold hover:bg-slate-200 transition">إضافة/تعديل منتج 🧴</button>
+                    <button id="tab-btn-addpkg" onclick="switchAdminTab('addpkg')" class="py-2 px-5 bg-slate-100 text-slate-600 rounded-lg font-bold hover:bg-slate-200 transition">إضافة/تعديل عرض 🎁</button>
+                </div>
+
+                <!-- Dashboard List -->
+                <div id="admin-tab-dash" class="space-y-6">
+                    <div>
+                        <h3 class="font-extrabold text-lg mb-3 flex items-center gap-2 text-navyDark">المنتجات التجميلية <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500" id="dash-prod-count">0</span></h3>
+                        <div id="admin-products-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                    <hr class="border-slate-100">
+                    <div>
+                        <h3 class="font-extrabold text-lg mb-3 flex items-center gap-2 text-brandOrange">عروض الباقات <span class="text-xs bg-orange-50 px-2 py-1 rounded text-orange-600" id="dash-pkg-count">0</span></h3>
+                        <div id="admin-packages-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                </div>
+
+                <!-- Product Form -->
+                <form id="add-product-form" onsubmit="submitForm(event, 'Products')" class="space-y-5 hidden">
+                    <input type="hidden" id="p-id" value="">
+                    <h3 id="p-form-title" class="text-xl font-extrabold text-navyDark border-b pb-2">إضافة منتج جديد</h3>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">اسم المنتج (بالعربية):</label><input type="text" id="p-name" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">وصف المنتج (بالعربية):</label><textarea id="p-desc" rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></textarea></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-bold text-slate-700 mb-1">السعر (EGP):</label><input type="number" id="p-price" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                        <div><label class="block text-sm font-bold text-slate-700 mb-1">رابط الصورة (درايف):</label><input type="url" id="p-img" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                    </div>
+                    <div class="pt-2"><button type="submit" id="btn-save-p" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-md text-lg">✨ حفظ البيانات</button></div>
+                </form>
+
+                <!-- Package Form -->
+                <form id="add-package-form" onsubmit="submitForm(event, 'Packages')" class="space-y-5 hidden">
+                    <input type="hidden" id="pkg-id" value="">
+                    <h3 id="pkg-form-title" class="text-xl font-extrabold text-navyDark border-b pb-2">إضافة باقة عروض</h3>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">اسم الباقة (بالعربي):</label><input type="text" id="pkg-name" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">سعر الباقة (EGP):</label><input type="number" id="pkg-price" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">رابط صورة الباقة (درايف):</label><input type="url" id="pkg-img" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brandOrange focus:outline-none"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-2">اختر المنتجات المدرجة:</label><div id="admin-products-checkboxes" class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50 text-sm"></div></div>
+                    <div class="pt-2"><button type="submit" id="btn-save-pkg" class="w-full bg-navyDark hover:bg-brandOrange text-white font-bold py-4 rounded-xl transition shadow-md text-lg">🎁 حفظ البيانات</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm hidden" id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 p-1 bg-white shadow-sm flex items-center justify-center shrink-0">
+                    <img src="logo.png" alt="Anjum Logo" class="w-full h-full object-contain rounded-xl" onerror="this.onerror=null; this.src='logo.jpeg';">
+                </div>
+                <div>
+                    <button onclick="openAdminModal()" class="text-left focus:outline-none group">
+                        <span class="text-3xl font-extrabold tracking-tight group-hover:opacity-80 transition block leading-tight"><span class="text-navyDark">Anjum</span> <span class="text-emerald-600">Green</span></span>
+                    </button>
+                    <span class="text-sm text-brandOrange font-extrabold tracking-widest uppercase block mt-1">Pharmacy</span>
+                </div>
+            </div>
+            <button onclick="showLanguageSelector()" class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition text-base font-bold flex items-center gap-2 shadow-sm">
+                🌐 <span id="current-lang-code" class="uppercase">EN</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow hidden" id="main-content">
+        <section class="mb-14">
+            <div class="flex items-center justify-between mb-8 border-b-2 border-slate-100 pb-4">
+                <div class="flex items-center gap-3"><span class="text-3xl">🎁</span><h2 id="packages-title" class="text-3xl font-extrabold text-navyDark tracking-tight">Special Packages</h2></div>
+            </div>
+            <div id="packages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section>
+            <div class="flex items-center justify-between mb-8 border-b-2 border-slate-100 pb-4">
+                <div class="flex items-center gap-3"><span class="text-3xl">🧴✨</span><h2 id="products-title" class="text-3xl font-extrabold text-navyDark tracking-tight">Our Products</h2></div>
+            </div>
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+        </section>
+    </main>
+
+    <!-- FOOTER WITH COUNTER -->
+    <footer class="bg-white text-slate-500 py-8 text-center text-sm border-t border-slate-200 mt-auto font-medium relative overflow-hidden">
+        <div class="flex justify-center items-center mb-5">
+            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 px-5 sm:px-6 py-2.5 rounded-full shadow-sm flex items-center gap-3 transform hover:scale-105 transition-transform duration-300">
+                <span class="text-xl animate-bounce" style="animation-duration: 2s;">🎉</span>
+                <span class="font-bold text-navyDark text-sm sm:text-base" id="visitor-text">أنت الزائر رقم</span>
+                <div class="bg-brandOrange text-white font-black px-4 py-1 rounded-full shadow-inner text-lg tracking-widest min-w-[70px]">
+                    <span id="visitor-count" class="inline-block">...</span>
+                </div>
+            </div>
+        </div>
+        <p>&copy; Anjum Green Pharmacy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ⚠️ تأكد من وضع رابط الـ Web App الصحيح الخاص بك هنا
+        const SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyG5eyKdRELwExw08lVH9iy8IhAL92ocPSZTren4sKz32lFVYjsQ_CFXheEGQ4svibl/exec";
+
+        const PRODUCTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=1509334531&single=true&output=csv";
+        const PACKAGES_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRygX-f8ueWgs5-hPD-XD8g-z5uCkTYKjqDMU_w1znt7Z8IoWbLIwZOWdhtfmv38Hu06jR6uCeWi33E/pub?gid=631786991&single=true&output=csv";
+
+        const uiTranslations = {
+            EN: { title: "Our Cosmetic Products", packages: "Special Packages", stock: "In Stock", enlarge: "Zoom" },
+            AR: { title: "منتجاتنا التجميلية", packages: "العروض الخاصة", stock: "متوفر", enlarge: "تكبير" },
+            PL: { title: "Kosmetyki", packages: "Pakiety Specjalne", stock: "W magazynie", enlarge: "Powiększ" },
+            RU: { title: "Косметические Товары", packages: "Специальные Наборы", stock: "В наличии", enlarge: "Увеличить" },
+            CS: { title: "Kosmetika", packages: "Speciální Balíčky", stock: "Skladem", enlarge: "Zvětšit" },
+            DE: { title: "Kosmetikprodukte", packages: "Sonderpakete", stock: "Auf Lager", enlarge: "Vergrößern" },
+            IT: { title: "Prodotti Cosmetici", packages: "Pacchetti Speciali", stock: "Disponibile", enlarge: "Ingrandisci" },
+            UK: { title: "Косметичні Товари", packages: "Спеціальні Набори", stock: "В наявності", enlarge: "Збільшити" },
+            CH: { title: "Kosmetik Produkt", packages: "Spezial-Paket", stock: "Uf Lager", enlarge: "Vergrössere" }
+        };
+
+        let currentLang = 'EN';
+        let globalProducts = [];
+        let globalPackages = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('splash-logo-container').classList.add('smoke-exit-active');
+                document.getElementById('splash-text-container').classList.add('smoke-exit-active');
+                setTimeout(() => {
+                    document.getElementById('splash-screen').classList.add('hidden');
+                    showLanguageSelector();
+                }, 1200); 
+            }, 4500); 
+        });
+
+        function showLanguageSelector() { document.getElementById('language-modal').classList.remove('hidden'); }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('language-modal').classList.add('hidden');
+            document.getElementById('main-nav').classList.remove('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('current-lang-code').innerText = lang;
+
+            if (lang === 'AR') { document.documentElement.dir = "rtl"; document.documentElement.lang = "ar"; } 
+            else { document.documentElement.dir = "ltr"; document.documentElement.lang = lang.toLowerCase(); }
+
+            const texts = uiTranslations[lang] || uiTranslations.EN;
+            document.getElementById('products-title').innerText = texts.title;
+            document.getElementById('packages-title').innerText = texts.packages;
+
+            const visitorTexts = {
+                EN: "You are visitor number", AR: "أنت الزائر رقم", PL: "Jesteś gościem numer", 
+                RU: "Вы посетитель номер", CS: "Jste návštěvník číslo", DE: "Sie sind Besucher Nummer", 
+                IT: "Sei il visitatore numero", UK: "Ви відвідувач номер", CH: "Du bisch Bsuecher Nummere"
+            };
+            document.getElementById('visitor-text').innerText = visitorTexts[lang] || visitorTexts.EN;
+
+            fetchData();
+        }
+
+        // الكاش الذكي لتجنب الحظر من سيرفرات جوجل (تحديث كل دقيقة فقط)
+        function fetchData() {
+            const ts = Math.floor(new Date().getTime() / 60000); 
+            
+            Papa.parse(`${PRODUCTS_SHEET_URL}&_=${ts}`, { 
+                download: true, 
+                header: true, 
+                complete: function(res) {
+                    if (res.data && res.data.length > 0) {
+                        globalProducts = res.data.filter(i => i.ID && (i.Name_AR || i.Name_EN));
+                        renderItems(globalProducts, 'products-container', false);
+                        renderAdminCards();
+                    }
+                }
+            });
+
+            Papa.parse(`${PACKAGES_SHEET_URL}&_=${ts}`, { 
+                download: true, 
+                header: true, 
+                complete: function(res) {
+                    if (res.data && res.data.length > 0) {
+                        globalPackages = res.data.filter(i => i.ID && (i.Name_AR || i.Name_EN));
+                        renderItems(globalPackages, 'packages-container', true);
+                        renderAdminCards();
+                    }
+                }
+            });
+        }
+
+        function getDriveDirectUrl(url) {
+            if (!url || typeof url !== 'string') return "";
+            let match = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/) || url.match(/\/d\/([a-zA-Z0-9-_]+)/) || url.match(/id=([a-zA-Z0-9-_]+)/);
+            return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000` : url;
+        }
+
+        function openLightbox(imgUrl) {
+            if (!imgUrl || imgUrl === 'undefined') return;
+            const lb = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = imgUrl;
+            lb.classList.remove('hidden'); void lb.offsetWidth; 
+            lb.classList.remove('opacity-0'); img.classList.remove('scale-95'); img.classList.add('scale-100');
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('image-lightbox'); const img = document.getElementById('lightbox-img');
+            lb.classList.add('opacity-0'); img.classList.remove('scale-100'); img.classList.add('scale-95');
+            setTimeout(() => { lb.classList.add('hidden'); img.src = ''; }, 300);
+        }
+
+        function renderItems(data, containerId, isPkg) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            const texts = uiTranslations[currentLang] || uiTranslations.EN;
+
+            data.forEach(item => {
+                let name = item[`Name_${currentLang}`] || item.Name_AR || item.Name_EN || "Product";
+                let desc = item[`Desc_${currentLang}`] || '';
+                let img = getDriveDirectUrl(item.Image_URL);
+                const price = item.Price || "0";
+
+                container.innerHTML += `
+                    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer">
+                        <div class="relative w-full h-72 overflow-hidden bg-slate-50" onclick="openLightbox('${img}')">
+                            ${img ? `<img src="${img}" alt="${name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out">` : `<div class="w-full h-full flex items-center justify-center text-6xl text-slate-200">🧴</div>`}
+                            ${isPkg ? `<div class="absolute top-4 right-4 bg-gradient-to-r from-brandOrange to-orange-400 text-white text-[11px] font-black tracking-widest px-4 py-1.5 rounded-full shadow-lg uppercase z-10">PACKAGE</div>` : ''}
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                                <span class="bg-white/95 text-navyDark px-5 py-2.5 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">🔍 ${texts.enlarge}</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col grow">
+                            <h3 class="text-xl font-extrabold text-navyDark leading-tight mb-2">${name}</h3>
+                            ${desc ? `<p class="text-slate-500 text-sm line-clamp-2 leading-relaxed mb-4">${desc}</p>` : ''}
+                            <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-3xl font-black text-brandGreen">${price}</span>
+                                    <span class="text-sm font-bold text-slate-400">EGP</span>
+                                </div>
+                                <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-600">${texts.stock}</span>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+        function verifyAdminPass() {
+            if (document.getElementById('admin-pass-input').value === '102030') {
+                document.getElementById('admin-auth').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+                renderAdminCards();
+            } else alert('خطأ في الرمز');
+        }
+
+        function switchAdminTab(tab) {
+            document.getElementById('admin-tab-dash').classList.toggle('hidden', tab !== 'dash');
+            document.getElementById('add-product-form').classList.toggle('hidden', tab !== 'addp');
+            document.getElementById('add-package-form').classList.toggle('hidden', tab !== 'addpkg');
+            
+            ['dash','addp','addpkg'].forEach(t => {
+                document.getElementById(`tab-btn-${t}`).className = `py-2 px-5 rounded-lg font-bold transition ${tab === t ? 'bg-navyDark text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+            });
+
+            if(tab === 'addp' || tab === 'addpkg') {
+                document.getElementById(tab==='addp'?'p-id':'pkg-id').value = '';
+                document.getElementById(tab==='addp'?'p-form-title':'pkg-form-title').innerText = tab==='addp'?'إضافة منتج جديد':'إضافة باقة عروض';
+                document.getElementById(tab==='addp'?'add-product-form':'add-package-form').reset();
+            }
+            if(tab === 'addpkg') populateCheckboxes();
+        }
+
+        function renderAdminCards() {
+            document.getElementById('dash-prod-count').innerText = globalProducts.length;
+            document.getElementById('dash-pkg-count').innerText = globalPackages.length;
+            
+            const pCont = document.getElementById('admin-products-list'); pCont.innerHTML = '';
+            const pkgCont = document.getElementById('admin-packages-list'); pkgCont.innerHTML = '';
+
+            globalProducts.forEach(p => pCont.innerHTML += adminCard(p, 'Products'));
+            globalPackages.forEach(p => pkgCont.innerHTML += adminCard(p, 'Packages'));
+        }
+
+        function adminCard(item, type) {
+            let img = getDriveDirectUrl(item.Image_URL);
+            return `
+                <div class="flex items-center gap-4 bg-white p-3 rounded-xl border shadow-sm">
+                    <div class="w-16 h-16 bg-slate-50 rounded-lg shrink-0 flex items-center justify-center p-1">
+                        ${img ? `<img src="${img}" class="h-full object-contain">` : '🧴'}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-navyDark truncate">${item.Name_AR || item.Name_EN}</div>
+                        <div class="text-sm font-semibold text-brandOrange">${item.Price} EGP</div>
+                    </div>
+                    <div class="flex flex-col gap-1 shrink-0">
+                        <button onclick="editItem('${type}', '${item.ID}')" class="bg-blue-50 text-blue-600 px-3 py-1 rounded text-xs font-bold hover:bg-blue-100 transition">تعديل ✏️</button>
+                        <button onclick="deleteItem('${type}', '${item.ID}')" class="bg-red-50 text-red-600 px-3 py-1 rounded text-xs font-bold hover:bg-red-100 transition">حذف 🗑️</button>
+                    </div>
+                </div>`;
+        }
+
+        function editItem(type, id) {
+            const isProd = type === 'Products';
+            const item = (isProd ? globalProducts : globalPackages).find(i => i.ID === id);
+            if(!item) return;
+
+            switchAdminTab(isProd ? 'addp' : 'addpkg');
+            document.getElementById(isProd ? 'p-id' : 'pkg-id').value = item.ID;
+            document.getElementById(isProd ? 'p-form-title' : 'pkg-form-title').innerText = 'تعديل البيانات ✏️';
+            
+            if(isProd) {
+                document.getElementById('p-name').value = item.Name_AR || item.Name_EN;
+                document.getElementById('p-desc').value = item.Desc_AR || item.Desc_EN;
+                document.getElementById('p-price').value = item.Price;
+                document.getElementById('p-img').value = item.Image_URL;
+            } else {
+                document.getElementById('pkg-name').value = item.Name_AR || item.Name_EN;
+                document.getElementById('pkg-price').value = item.Price;
+                document.getElementById('pkg-img').value = item.Image_URL;
+            }
+        }
+
+        function deleteItem(type, id) {
+            if(!confirm('هل أنت متأكد من حذف هذا العنصر نهائياً؟')) return;
+            
+            fetch(`${SCRIPT_WEB_APP_URL}`, {
+                method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'delete', type: type, ID: id })
+            }).then(() => { 
+                alert('✅ تم مسح المنتج.\n\n⏳ ملاحظة: خوادم جوجل تحتاج دقيقة لتحديث الموقع المباشر.'); 
+                window.location.href = window.location.pathname + '?v=' + new Date().getTime(); 
+            });
+        }
+
+        function populateCheckboxes() {
+            const cont = document.getElementById('admin-products-checkboxes'); cont.innerHTML = '';
+            globalProducts.forEach(p => {
+                let n = p.Name_AR || p.Name_EN;
+                cont.innerHTML += `<label class="flex items-center gap-2 p-2 hover:bg-slate-100 rounded cursor-pointer"><input type="checkbox" value="${n}" class="accent-brandOrange"><span>${n}</span></label>`;
+            });
+        }
+
+        async function translate(txt, lang) {
+            if (!txt) return "";
+            try { const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=${lang}&dt=t&q=${encodeURIComponent(txt)}`);
+            const data = await res.json(); return data[0][0][0]; } catch(e) { return txt; }
+        }
+
+        async function submitForm(e, type) {
+            e.preventDefault();
+            const isProd = type === 'Products';
+            const btnId = isProd ? 'btn-save-p' : 'btn-save-pkg';
+            const btn = document.getElementById(btnId);
+            btn.disabled = true; btn.innerText = 'جاري المعالجة... ⏳';
+
+            const id = document.getElementById(isProd ? 'p-id' : 'pkg-id').value;
+            const nameAr = document.getElementById(isProd ? 'p-name' : 'pkg-name').value;
+            const price = document.getElementById(isProd ? 'p-price' : 'pkg-price').value;
+            const img = document.getElementById(isProd ? 'p-img' : 'pkg-img').value;
+            
+            let descAr = "";
+            if (isProd) descAr = document.getElementById('p-desc').value;
+            else {
+                const checked = [];
+                document.querySelectorAll('#admin-products-checkboxes input:checked').forEach(c => checked.push(c.value));
+                descAr = "يشمل: " + checked.join(" + ");
+            }
+
+            const langs = ['en','pl','ru','cs','de','it','uk','de'];
+            const tName = {}; const tDesc = {};
+            for (let l of langs) {
+                tName[l.toUpperCase()] = await translate(nameAr, l);
+                tDesc[l.toUpperCase()] = descAr ? await translate(descAr, l) : '';
+            }
+
+            const payload = {
+                action: id ? 'edit' : 'add',
+                type: type, ID: id || Date.now().toString(), Image_URL: img, Price: price,
+                Name_AR: nameAr, Name_EN: tName.EN, Name_PL: tName.PL, Name_RU: tName.RU, Name_CS: tName.CS, Name_DE: tName.DE, Name_IT: tName.IT, Name_UK: tName.UK, Name_CH: tName.DE,
+                Desc_AR: descAr, Desc_EN: tDesc.EN, Desc_PL: tDesc.PL, Desc_RU: tDesc.RU, Desc_CS: tDesc.CS, Desc_DE: tDesc.DE, Desc_IT: tDesc.IT, Desc_UK: tDesc.UK, Desc_CH: tDesc.DE
+            };
+
+            fetch(`${SCRIPT_WEB_APP_URL}`, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+            .then(() => { 
+                alert('✅ تم الحفظ!\n\n⏳ ملاحظة: خوادم جوجل تحتاج دقيقة لتحديث الموقع المباشر.'); 
+                window.location.href = window.location.pathname + '?v=' + new Date().getTime(); 
+            });
+        }
+
+        // --- 🚀 نظام عداد الزوار العالمي (محدث وآمن جداً) ---
+        async function initVisitorCounter() {
+            try {
+                const res = await fetch('https://api.counterapi.dev/v1/anjumgreen_pharmacy/visits/up');
+                const data = await res.json();
+                
+                const baseCount = 100;
+                const apiCount = (data && typeof data.count === 'number') ? data.count : 27; 
+                const totalVisits = baseCount + apiCount;
+                
+                animateValue("visitor-count", baseCount, totalVisits, 2000);
+            } catch (e) {
+                document.getElementById('visitor-count').innerText = "127";
+            }
+        }
+
+        function animateValue(id, start, end, duration) {
+            let obj = document.getElementById(id);
+            let range = end - start;
+            if (range <= 0 || isNaN(range)) {
+                obj.innerText = end;
+                return;
+            }
+            let current = start;
+            let stepTime = Math.max(Math.floor(duration / range), 10); 
+            let timer = setInterval(function() {
+                current += 1;
+                obj.innerText = current;
+                if (current >= end) {
+                    clearInterval(timer);
+                    obj.innerText = end;
+                }
+            }, stepTime);
+        }
+
+        window.addEventListener('load', initVisitorCounter);
+    </script>
+</body>
+</html>
