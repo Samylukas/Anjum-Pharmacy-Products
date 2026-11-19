@@ -207,10 +207,19 @@
         </section>
     </main>
 
-    <footer class="bg-white text-slate-500 py-6 text-center text-sm border-t border-slate-200 mt-auto font-medium">
-    &copy; Anjum Green Pharmacy. All rights reserved.
-    <span id="price-disclaimer" class="block text-xs text-slate-400 mt-2"></span>
-</footer>
+ <footer class="bg-white text-slate-500 py-8 text-center text-sm border-t border-slate-200 mt-auto font-medium relative overflow-hidden">
+        <!-- عداد الزوار المبهر -->
+        <div class="flex justify-center items-center mb-5">
+            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 px-5 sm:px-6 py-2.5 rounded-full shadow-sm flex items-center gap-3 transform hover:scale-105 transition-transform duration-300">
+                <span class="text-xl animate-bounce" style="animation-duration: 2s;">🎉</span>
+                <span class="font-bold text-navyDark text-sm sm:text-base" id="visitor-text">أنت الزائر رقم</span>
+                <div class="bg-brandOrange text-white font-black px-4 py-1 rounded-full shadow-inner text-lg tracking-widest min-w-[70px]">
+                    <span id="visitor-count" class="inline-block">...</span>
+                </div>
+            </div>
+        </div>
+        <p>&copy; Anjum Green Pharmacy. All rights reserved.</p>
+    </footer>
 
     <script>
         // ⚠️⚠️⚠️ انتبه: ضع الرابط الجدييييد الذي استخرجته (New Deployment) في السطر القادم ⚠️⚠️⚠️
