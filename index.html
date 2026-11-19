@@ -523,21 +523,21 @@ document.getElementById('price-disclaimer').innerText = texts.disclaimer;
           });
         });
       }
-        // --- 🚀 نظام عداد الزوار العالمي ---
+       // --- 🚀 نظام عداد الزوار العالمي (محدث وآمن جداً) ---
         async function initVisitorCounter() {
             try {
-                // استدعاء API مجاني وسريع لزيادة وتسجيل عدد الزوار
+                // استدعاء API الزوار
                 const res = await fetch('https://api.counterapi.dev/v1/anjumgreen_pharmacy/visits/up');
                 const data = await res.json();
                 
-                // القاعدة الأساسية: نبدأ من 100 + الزيارات الفعلية
                 const baseCount = 100;
-                const totalVisits = baseCount + data.count;
+                // حماية سحرية: التأكد من أن الرقم العائد من السيرفر هو رقم صحيح الفعلي، وإلا نضع رقماً افتراضياً
+                const apiCount = (data && typeof data.count === 'number') ? data.count : 27; 
+                const totalVisits = baseCount + apiCount;
                 
-                // تشغيل تأثير الأرقام المتصاعدة المبهر (يأخذ ثانيتين للوصول للرقم)
                 animateValue("visitor-count", baseCount, totalVisits, 2000);
             } catch (e) {
-                // في حالة ضعف الإنترنت، نظهر رقم عشوائي فوق الـ 100 لعدم تعطل الشكل
+                // في حالة فشل الاتصال، يظهر هذا الرقم فوراً دون تعطيل الموقع
                 document.getElementById('visitor-count').innerText = "127";
             }
         }
@@ -545,13 +545,19 @@ document.getElementById('price-disclaimer').innerText = texts.disclaimer;
         function animateValue(id, start, end, duration) {
             let obj = document.getElementById(id);
             let range = end - start;
+            
+            // منع أي عد عكسي أو أخطاء
+            if (range <= 0 || isNaN(range)) {
+                obj.innerText = end;
+                return;
+            }
+            
             let current = start;
-            let increment = end > start ? 1 : -1;
-            // حساب وقت الخطوة بناءً على المدة الإجمالية
-            let stepTime = Math.abs(Math.floor(duration / Math.max(range, 1)));
+            // حماية المتصفح من التجمد: تحديد حد أدنى لسرعة العد (10 ملي ثانية)
+            let stepTime = Math.max(Math.floor(duration / range), 10); 
             
             let timer = setInterval(function() {
-                current += increment;
+                current += 1;
                 obj.innerText = current;
                 if (current >= end) {
                     clearInterval(timer);
@@ -560,7 +566,7 @@ document.getElementById('price-disclaimer').innerText = texts.disclaimer;
             }, stepTime);
         }
 
-        // تشغيل العداد بصمت في الخلفية عند تحميل الصفحة
+        // تشغيل العداد بصمت في الخلفية
         window.addEventListener('load', initVisitorCounter);
     </script>
 </body>
