@@ -286,6 +286,13 @@ function handleAdminClick() {
             const texts = uiTranslations[lang] || uiTranslations.EN;
             document.getElementById('products-title').innerText = texts.title;
             document.getElementById('packages-title').innerText = texts.packages;
+            // ترجمة العداد
+            const visitorTexts = {
+                EN: "You are visitor number", AR: "أنت الزائر رقم", PL: "Jesteś gościem numer", 
+                RU: "Вы посетитель номер", CS: "Jste návštěvník číslo", DE: "Sie sind Besucher Nummer", 
+                IT: "Sei il visitatore numero", UK: "Ви відвідувач номер", CH: "Du bisch Bsuecher Nummere"
+            };
+            document.getElementById('visitor-text').innerText = visitorTexts[lang] || visitorTexts.EN;
 document.getElementById('price-disclaimer').innerText = texts.disclaimer;
             fetchData();
         }
@@ -516,6 +523,45 @@ document.getElementById('price-disclaimer').innerText = texts.disclaimer;
           });
         });
       }
+        // --- 🚀 نظام عداد الزوار العالمي ---
+        async function initVisitorCounter() {
+            try {
+                // استدعاء API مجاني وسريع لزيادة وتسجيل عدد الزوار
+                const res = await fetch('https://api.counterapi.dev/v1/anjumgreen_pharmacy/visits/up');
+                const data = await res.json();
+                
+                // القاعدة الأساسية: نبدأ من 100 + الزيارات الفعلية
+                const baseCount = 100;
+                const totalVisits = baseCount + data.count;
+                
+                // تشغيل تأثير الأرقام المتصاعدة المبهر (يأخذ ثانيتين للوصول للرقم)
+                animateValue("visitor-count", baseCount, totalVisits, 2000);
+            } catch (e) {
+                // في حالة ضعف الإنترنت، نظهر رقم عشوائي فوق الـ 100 لعدم تعطل الشكل
+                document.getElementById('visitor-count').innerText = "127";
+            }
+        }
+
+        function animateValue(id, start, end, duration) {
+            let obj = document.getElementById(id);
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            // حساب وقت الخطوة بناءً على المدة الإجمالية
+            let stepTime = Math.abs(Math.floor(duration / Math.max(range, 1)));
+            
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerText = current;
+                if (current >= end) {
+                    clearInterval(timer);
+                    obj.innerText = end;
+                }
+            }, stepTime);
+        }
+
+        // تشغيل العداد بصمت في الخلفية عند تحميل الصفحة
+        window.addEventListener('load', initVisitorCounter);
     </script>
 </body>
 </html>
